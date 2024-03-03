@@ -76,5 +76,27 @@ namespace T_I_yo_blog.Controllers
             }
             return Ok(city);
         }
+
+        [HttpGet("getfoodbycountryid")]
+        public IActionResult GetFoodByCountryId(int id)
+        {
+            var food = _countryRepository.GetFoodByCountryId(id);
+            if (food == null)
+            {
+                return NotFound();
+            }
+            return Ok(food);
+        }
+
+        [HttpGet("getcitybycountryid")]
+        public IActionResult GetCityByCountryId(int id)
+        {
+            var city = _countryRepository.GetCityByCountryId(id);
+            if (city == null)
+            {
+                return NotFound();
+            }
+            return Ok(city);
+        }
     }
 }

@@ -157,5 +157,87 @@ namespace T_I_yo_blog.Repositories
                  }
              }
          }
+
+        public List<Country> GetFoodByCountryId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Select co.Id, co.Name, co.Description, co.Slogan, co.Capital,
+                                      f.Id as foodId, f.CountryId, f.Name as foodName 
+                                      from Countries co
+                                      Join Food f on co.Id = f.CountryId
+                                      WHERE co.Id = @Id";
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    List<Country> countries = new List<Country>();
+                    var reader = cmd.ExecuteReader();
+                    
+                        while (reader.Read())
+                        {
+                            Country country = new Country()
+                     {
+                         Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                         Name = reader.GetString(reader.GetOrdinal("Name")),
+                         Description = reader.GetString(reader.GetOrdinal("Description")),
+                         Slogan = reader.GetString(reader.GetOrdinal("Slogan")),
+                         Capital = reader.GetString(reader.GetOrdinal("Capital")),
+                         Food = new Food()
+                         {
+                           Id = reader.GetInt32(reader.GetOrdinal("foodId")),
+                           CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
+                           Name = reader.GetString(reader.GetOrdinal("foodName")),
+                         }
+                      };
+                        countries.Add(country);
+                        }
+                    reader.Close();
+                    return countries;
+                }
+            }
+        }
+
+        public List<Country> GetCityByCountryId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Select co.Id, co.Name, co.Description, co.Slogan, co.Capital,
+                                       ci.Id as cityId, ci.Name as cityName, ci.CountryId
+                                       from Countries co
+                                       Join Cities ci on co.Id = ci.CountryId
+                                      WHERE co.Id = @Id";
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    List<Country> countries = new List<Country>();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Country country = new Country()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            Description = reader.GetString(reader.GetOrdinal("Description")),
+                            Slogan = reader.GetString(reader.GetOrdinal("Slogan")),
+                            Capital = reader.GetString(reader.GetOrdinal("Capital")),
+                            City = new City()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("cityId")),
+                                CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
+                                Name = reader.GetString(reader.GetOrdinal("cityName")),
+                            }
+                        };
+                        countries.Add(country);
+                    }
+                    reader.Close();
+                    return countries;
+                }
+            }
+        }
     }
 }
