@@ -88,15 +88,26 @@ namespace T_I_yo_blog.Controllers
             return Ok(food);
         }
 
-        [HttpGet("getcitybycountryid")]
-        public IActionResult GetCityByCountryId(int id)
+        [HttpGet("getcitiesbycountryid")]
+        public IActionResult GetCitiesByCountryId(int id)
         {
-            var city = _countryRepository.GetCityByCountryId(id);
+            var city = _countryRepository.GetCitiesByCountryId(id);
             if (city == null)
             {
                 return NotFound();
             }
             return Ok(city);
+        }
+
+        [HttpGet("getplacebycountryid")]
+        public IActionResult GetPlacesByCountryId(int id)
+        {
+            var place = _countryRepository.GetPlacesByCountryId(id);
+            if (place == null)
+            {
+                return NotFound();
+            }
+            return Ok(place);
         }
     }
 }

@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using T_I_yo_blog.Repositories;
+using System.Collections.Generic;
+using System.Linq;
 using T_I_yo_blog.Models;
 using T_I_yo_blog.Utils;
+using System.Diagnostics.Metrics;
 
 
 namespace T_I_yo_blog.Repositories
@@ -46,10 +50,9 @@ namespace T_I_yo_blog.Repositories
                  conn.Open();
                  using (var cmd = conn.CreateCommand())
                  {
-                     cmd.CommandText = @"INSERT INTO Countries (Id, Name, Description, Slogan, Capital)
+                     cmd.CommandText = @"INSERT INTO Countries (Name, Description, Slogan, Capital)
                                          OUTPUT INSERTED.ID
-                                         VALUES (@id, @name, @description, @slogan, @capital)";
-                    DbUtils.AddParameter(cmd, "@id", countries.Id);
+                                         VALUES (@name, @description, @slogan, @capital)";
                     DbUtils.AddParameter(cmd, "@name", countries.Name);
                     DbUtils.AddParameter(cmd, "@description", countries.Description);
                     DbUtils.AddParameter(cmd, "@slogan", countries.Slogan);
@@ -199,7 +202,7 @@ namespace T_I_yo_blog.Repositories
             }
         }
 
-        public List<Country> GetCityByCountryId(int id)
+        public List<Country> GetCitiesByCountryId(int id)
         {
             using (var conn = Connection)
             {
@@ -236,6 +239,52 @@ namespace T_I_yo_blog.Repositories
                     }
                     reader.Close();
                     return countries;
+                }
+            }
+        }
+
+        public List<Country> GetPlacesByCountryId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Select co.Id, co.Name, co.Description, co.Slogan, co.Capital,
+                                       pl.Id as placeId, pl.Name as placeName, pl.PlaceType, pl.CityId as placeCityId, 
+                                       pl.Description as placeDescription, pl.CountryId
+                                       from Countries co
+                                       Join Places pl on co.Id = pl.CountryId
+                                       WHERE co.Id = @Id";
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    List<Country> places = new List<Country>();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Country country = new Country()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            Description = reader.GetString(reader.GetOrdinal("Description")),
+                            Slogan = reader.GetString(reader.GetOrdinal("Slogan")),
+                            Capital = reader.GetString(reader.GetOrdinal("Capital")),
+                            Place = new Place()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("PlaceId")),
+                                Name = reader.GetString(reader.GetOrdinal("placeName")),
+                                PlaceType = reader.GetString(reader.GetOrdinal("PlaceType")),
+                                CityId = reader.GetInt32(reader.GetOrdinal("placeCityId")),
+                                Description = reader.GetString(reader.GetOrdinal("placeDescription")),
+                                CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
+                            }
+                        };
+                        places.Add(country);
+                        }
+                    reader.Close();
+                    return places;
+
                 }
             }
         }

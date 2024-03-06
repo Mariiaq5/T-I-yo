@@ -153,5 +153,40 @@ namespace T_I_yo_blog.Repositories
                 }
             }
         }
+
+        //get places by countryId
+        public List<Place> GetPlacesByCountryId(int countryId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Select Id, Name, PlaceType, CityId, Description, CountryId from Places
+                                       Where CountryId = @countryId";
+                    DbUtils.AddParameter(cmd, "@countryId", countryId);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new List<Place>() {new Place()
+                     {
+                         Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                         Name = reader.GetString(reader.GetOrdinal("Name")),
+                         PlaceType = reader.GetString(reader.GetOrdinal("PlaceType")),
+                         CityId = reader.GetInt32(reader.GetOrdinal("CityId")),
+                         Description = reader.GetString(reader.GetOrdinal("Description")),
+                         CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
+                     }};
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

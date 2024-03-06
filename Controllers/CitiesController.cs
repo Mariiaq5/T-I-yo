@@ -65,10 +65,21 @@ namespace T_I_yo_blog.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}")]
+       /* [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             var city = _cityRepository.GetById(id);
+            if (city == null)
+            {
+                return NotFound();
+            }
+            return Ok(city);
+        } */
+
+        [HttpGet("/bycountry={countryId}")]
+        public IActionResult GetCitiesByCountryId(int countryId)
+        {
+            var city = _cityRepository.GetCitiesByCountryId(countryId);
             if (city == null)
             {
                 return NotFound();

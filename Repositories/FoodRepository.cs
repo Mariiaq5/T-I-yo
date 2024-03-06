@@ -142,5 +142,36 @@ namespace T_I_yo_blog.Repositories {
                 }
             }
         }
+
+        public List<Food> GetFoodByCountryId(int countryId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Select Id, Name, CountryId from Food 
+                                       Where CountryId = @countryId";
+                    DbUtils.AddParameter(cmd, "@countryId", countryId);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new List<Food>() {new Food()
+                     {
+                         Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                         Name = reader.GetString(reader.GetOrdinal("Name")),
+                         CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
+                     }};
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

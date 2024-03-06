@@ -32,7 +32,7 @@ namespace T_I_yo_blog.Repositories
                             DisplayName = DbUtils.GetString(reader, "DisplayName"),
                             Email = DbUtils.GetString(reader, "Email"),
                             Password = DbUtils.GetString(reader, "Password"),
-                            //Admin = DbUtils.(reader, "Admin")
+                            Admin = reader.GetBoolean(reader.GetOrdinal("Admin"))
                         });
                     }
                     reader.Close();

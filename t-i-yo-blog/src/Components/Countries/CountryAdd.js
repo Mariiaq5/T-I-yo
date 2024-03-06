@@ -4,12 +4,18 @@ import { useNavigate } from 'react-router';
 
   export const CountryAdd = ({ onSave }) => {
   const [newCountryName, setNewCountryName] = useState('');
+  const [newCountryDescription, setNewCountryDescription] = useState('');
+  const [newCountrySlogan, setNewCountrySlogan] = useState('');
+  const [newCountryCapital, setNewCountryCapital] = useState('');
   const navigate = useNavigate()
   const handleSave = async (e) => {
     e.preventDefault();
     try {
       const newCountry = {
         name: newCountryName,
+        description: newCountryDescription,
+        slogan: newCountrySlogan,
+        capital: newCountryCapital,
       };
       const response = await addCountry(newCountry);
       if (response.ok) {
@@ -21,7 +27,7 @@ import { useNavigate } from 'react-router';
     } catch (error) {
       console.error('Error adding country:', error);
     }
-    navigate('/countries');
+    navigate('/countries/add');
   };
   return (
     <div className='country-form'>
@@ -31,9 +37,20 @@ import { useNavigate } from 'react-router';
           Country Name:
           <input type="text" value={newCountryName} onChange={(e) => setNewCountryName(e.target.value)} />
         </label>
+        <label>
+          Description:
+          <input type="text" value={newCountryDescription} onChange={(e) => setNewCountryDescription(e.target.value)} />
+        </label>
+        <label>
+          Slogan:
+          <input type="text" value={newCountrySlogan} onChange={(e) => setNewCountrySlogan(e.target.value)} />
+        </label>
+        <label>
+          Capital:
+          <input type="text" value={newCountryCapital} onChange={(e) => setNewCountryCapital(e.target.value)} />
+        </label>
         <button type="submit">Save</button>
       </form>
     </div>
   );
 };
-//export default CountryList;

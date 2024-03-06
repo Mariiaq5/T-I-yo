@@ -41,3 +41,20 @@ export const deleteCountry = (id) => {
     })
   }
   
+  export const getFoodByCountryId = (id) => {
+    return fetch(`${baseUrl}/getfoodbycountryid?id=${id}`)
+    .then((res) => res.json()
+    );
+}
+
+export const getCitiesByCountryId = (id) => {
+    return fetch(`${baseUrl}/getcitiesbycountryid?id=${id}`) 
+    .then((res) => res.json()
+    );
+}
+
+export const getPlacesByCountryId = (id) => {
+    return fetch(`${baseUrl}/getplacebycountryid?id=${id}`) 
+    .then((res) => res.json()
+    );
+}

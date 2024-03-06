@@ -74,5 +74,16 @@ namespace T_I_yo_blog.Controllers
             }
             return Ok(food);
         }
+
+       [HttpGet("CountryId = {countryId}")]
+        public IActionResult GetFoodByCountryId(int countryId)
+        {
+            var place = _foodRepository.GetFoodByCountryId(countryId);
+            if (place == null)
+            {
+                return NotFound();
+            }
+            return Ok(place);
+        } 
     }
 }

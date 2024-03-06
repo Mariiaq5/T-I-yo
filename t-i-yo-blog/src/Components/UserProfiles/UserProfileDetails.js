@@ -18,16 +18,16 @@ export const UserProfileDetails = () => {
 
   useEffect(() => {
     getuser();
-  }, [id]); // Include id as a dependency to re-fetch user when the id changes
+  }, [id]);
 
   // Conditionally render if user data is available
   if (!user.id) {
-    return <div>Loading...</div>; // or another loading indicator
+    return <div>Loading...</div>;
   }
 
   return (
     <>
-      <Card>
+       <Card>
         <Link to={`/users/`}><button className="btn btn-primary">Back to User Profile List</button></Link>  
         <div className="text-center">
           <img className="image" id="userImg" src={user.imageLocation} alt={user.displayName} />

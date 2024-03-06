@@ -11,6 +11,9 @@ namespace T_I_yo_blog.Models
         public string Capital { get; set; }
         public Food? Food { get; set; }
         public City? City { get; set; }
+        public Place? Place { get; set; }
+        public List<Country> countries { get; set; }
+        public List<Place> places { get; set; }
 
     }
 }

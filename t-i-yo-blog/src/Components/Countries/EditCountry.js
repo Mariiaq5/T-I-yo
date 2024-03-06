@@ -29,6 +29,33 @@ export const EditCountry = () => {
                         copy.name = e.target.value;
                         setCountry(copy);
                     }}
+                    />
+                    <Input
+                    placeholder='Description'
+                    value={country.description}
+                    onChange={(e) => {
+                        const copy = { ...country };
+                        copy.description = e.target.value;
+                        setCountry(copy);
+                    }}
+                    />
+                    <Input
+                    placeholder='Slogan'
+                    value={country.slogan}
+                    onChange={(e) => {
+                        const copy = { ...country };
+                        copy.slogan = e.target.value;
+                        setCountry(copy);
+                    }}
+                    />
+                    <Input
+                    placeholder='Capital'
+                    value={country.capital}
+                    onChange={(e) => {
+                        const copy = { ...country };
+                        copy.capital = e.target.value;
+                        setCountry(copy);
+                    }}
                 />
                 <Button color='primary' onClick={(e) => handleSubmit(e)}>Save</Button>
             </InputGroup>

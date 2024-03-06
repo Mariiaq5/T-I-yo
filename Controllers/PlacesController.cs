@@ -74,5 +74,16 @@ namespace T_I_yo_blog.Controllers
             }
             return Ok(place);
         }
+
+        [HttpGet("/bycountry/{countryId}")]
+        public IActionResult GetPlacesByCountryId(int countryId)
+        {
+            var place = _placesRepository.GetPlacesByCountryId(countryId);
+            if (place == null)
+            {
+                return NotFound();
+            }
+            return Ok(place);
+        }
     }
 }

@@ -13,33 +13,37 @@ export const UserProfileList = () => {
   }, []);
 
   return (
-    <div className="container">
-      <h2 className="row justify-content-center">User Profiles</h2>
-      <table>
-         <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>DisplayName</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Admin</th>
-          </tr>
-         </thead>
-         <tbody>
-         {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.displayName}</td>
-              <td>{user.email}</td>
-              <td>{user.password}</td>
-              <td>{user.admin}</td>
-            </tr>
-          ))}
-         </tbody>
-      </table>
-    </div>
+    <div class="container-fluid">
+                  <div class="col">
+                   <div class="row"> 
+                   <div class="card text-row">
+                    <h3 class="text-center">Users</h3>
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>DisplayName</th>
+                          <th>Email</th>
+                          <th>Password</th>
+                          <th>Admin</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {users.map((user) => (
+                        <tr key={user.id}>
+                          <td>{user.name}</td>
+                          <td>{user.displayName}</td>
+                          <td>{user.email}</td>
+                          <td>{user.password}</td>
+                          <td>{user.admin}</td>
+                        </tr>                     
+                        ))}
+                      </tbody>
+                    </table>
+                   </div>
+                   </div>
+                </div>
+                 </div>
   );
 };
 
