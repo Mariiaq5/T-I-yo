@@ -12,14 +12,15 @@ export default function Register({setIsLoggedIn}) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
-
+ 
+  const admin = false;
   const registerClick = (e) => {
     e.preventDefault();
     if (password && password !== confirmPassword) {
       alert("Passwords don't match. Do better.");
     } else {
-      const userProfile = { name, displayName, email };
-      register(userProfile, password)
+      const userProfile = { name, displayName, email, password, admin };
+      register(userProfile)
         .then(() => {
           setIsLoggedIn(true)
           navigate('/')

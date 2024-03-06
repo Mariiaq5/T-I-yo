@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const CountryList = () => {
     const [countries, setCountries] = useState([]);
+    const [search, setSearch] = useState("");
     const navigate = useNavigate();
 
     const getCountries = () => {
@@ -22,8 +23,27 @@ export const CountryList = () => {
         const handleDelete = (id) => {
             console.log(`Delete clicked for country with id ${id}`);
         }
+
+        const handleSearch = (event) => {
+            setSearch(event.target.value);
+          };
+
+        const filteredCountries = countries.filter((country) => {
+            const countryName = country.name.toLowerCase().includes(search.toLowerCase());
+            return countryName;
+        });
+
     return (
 <div>
+        <div class="mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search by country name"
+            value={search}
+            onChange={handleSearch}
+          />
+        </div>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -34,7 +54,7 @@ export const CountryList = () => {
             </tr>
         </thead>
         <tbody>
-            {countries.map((country) => (
+            {filteredCountries.map((country) => (
                 <tr key={country.id}>
                     <td>{country.name}</td>
                     <td>{country.description}</td>

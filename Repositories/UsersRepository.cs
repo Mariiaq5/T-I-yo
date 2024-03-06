@@ -121,10 +121,9 @@ namespace T_I_yo_blog.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Users (Id, Name, DisplayName, Email, Password, Admin)
+                    cmd.CommandText = @"INSERT INTO Users (Name, DisplayName, Email, Password, Admin)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@Id, @Name, @DisplayName, @Email, @Password, @Admin)";
-                    DbUtils.AddParameter(cmd, "@Id", user.Id);
+                                        VALUES (@Name, @DisplayName, @Email, @Password, @Admin)";
                     DbUtils.AddParameter(cmd, "@Name", user.Name);
                     DbUtils.AddParameter(cmd, "@DisplayName", user.DisplayName);
                     DbUtils.AddParameter(cmd, "@Email", user.Email);
