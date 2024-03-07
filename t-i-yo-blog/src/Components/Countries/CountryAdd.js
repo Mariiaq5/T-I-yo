@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router';
   const [newCountrySlogan, setNewCountrySlogan] = useState('');
   const [newCountryCapital, setNewCountryCapital] = useState('');
   const navigate = useNavigate()
+
+
   const handleSave = async (e) => {
     e.preventDefault();
     try {
@@ -27,7 +29,7 @@ import { useNavigate } from 'react-router';
     } catch (error) {
       console.error('Error adding country:', error);
     }
-    navigate('/countries/add');
+    navigate('/countries');
   };
   return (
     <div className='country-form'>

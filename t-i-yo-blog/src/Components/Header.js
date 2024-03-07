@@ -33,9 +33,6 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                   <NavLink tag={RRNavLink} to="/countries">Countries</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/search">Search</NavLink>
-                </NavItem>
-                <NavItem>
                   <NavLink tag={RRNavLink} to="/countries/add">Add New Country</NavLink>
                 </NavItem>
               </>
