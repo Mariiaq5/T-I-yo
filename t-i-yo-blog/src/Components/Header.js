@@ -14,12 +14,14 @@ import {
 export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const userString = localStorage.getItem("users");
+  const userLS = JSON.parse(userString);
   
 
   return (
     <div>
-      <Navbar color="light" light expand="md">
-        <NavbarBrand tag={RRNavLink} to="/">Tabloid</NavbarBrand>
+      <Navbar color="dark" dark expand="md">
+        <NavbarBrand tag={RRNavLink} to="/">T-I-yo✈️</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
@@ -32,18 +34,24 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/countries">Countries</NavLink>
                 </NavItem>
+                { userLS.admin == true ? (
+                  <>
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/countries/add">Add New Country</NavLink>
                 </NavItem>
+                <NavItem>
+                <NavLink tag={RRNavLink} to="/users">Users</NavLink>
+                </NavItem>
+                 </>
+                 ) : (<></>)
+                }
               </>
             }
           </Nav>
           <Nav navbar>
             {isLoggedIn &&
               <>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/users">Users</NavLink>
-                </NavItem>
+
                 <NavItem>
                   <a aria-current="page" className="nav-link"
                     style={{ cursor: "pointer" }} onClick={() => {

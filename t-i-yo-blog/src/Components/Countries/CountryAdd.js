@@ -51,7 +51,7 @@ import { useNavigate } from 'react-router';
           Capital:
           <input type="text" value={newCountryCapital} onChange={(e) => setNewCountryCapital(e.target.value)} />
         </label>
-        <button type="submit">Save</button>
+        <button type="submit" class="btn btn-success">Save</button>
       </form>
     </div>
   );

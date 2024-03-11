@@ -8,15 +8,15 @@ import { CountryAdd } from "./Countries/CountryAdd";
 import { CountryDetails } from "./Countries/CountryDetails";
 
 export default function ApplicationViews() {
-
+  
   return (
     <>
       <Routes>
         <Route path="/countries" element={<CountryList/>} />
-        <Route path="/countries/edit/:id" element={<EditCountry/>} />
-        <Route path="/users" element={<UserProfileList />} />
+          <Route path="/countries/add" element={<CountryAdd/>} />
+          <Route path="/countries/edit/:id" element={<EditCountry/>} />
+          <Route path="/users" element={<UserProfileList />} />
         <Route path="/users/:id" element={<UserProfileDetails />} />
-        <Route path="/countries/add" element={<CountryAdd/>} />
         <Route path="/countries/details/:id" element={<CountryDetails/>} />
       </Routes>
     </>

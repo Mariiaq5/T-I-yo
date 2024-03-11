@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllCountries } from '../../Managers/CountryManager';
+import { deleteCountry, getAllCountries } from '../../Managers/CountryManager';
 import { useNavigate } from 'react-router-dom';
 //import { useNavigate } from 'react-router';
 
@@ -7,6 +7,8 @@ export const CountryList = () => {
     const [countries, setCountries] = useState([]);
     const [search, setSearch] = useState("");
     const navigate = useNavigate();
+    const userString = localStorage.getItem("users");
+    const userLS = JSON.parse(userString);
 
     const getCountries = () => {
         getAllCountries().then((thesecountries) => setCountries(thesecountries));
@@ -21,7 +23,8 @@ export const CountryList = () => {
         };
 
         const handleDelete = (id) => {
-            console.log(`Delete clicked for country with id ${id}`);
+            deleteCountry(id)
+            window.location.reload();
         }
 
         const handleSearch = (event) => {
@@ -61,7 +64,15 @@ export const CountryList = () => {
                     <td>{country.slogan}</td>
                     <td>{country.capital}</td>
                     <td>
-                    <button class="btn btn-info btn-sm" onClick={() =>navigate(`details/${country.id}`)}>Read More</button>
+                    <button class="btn btn-outline-info btn-sm" onClick={() =>navigate(`details/${country.id}`)}>Read More</button>
+
+                    { userLS.admin == true ? (
+                        <>
+                    <button class="btn btn-outline-danger btn-sm" onClick={() => handleDelete(`${country.id}`)}>Delete Country</button>
+                    <button class="btn btn-outline-success btn-sm" onClick={() => navigate(`edit/${country.id}`)}>Update Country</button>
+                        </>
+                    ) : (<></>)
+                    }
                     </td>
                     
                 </tr>

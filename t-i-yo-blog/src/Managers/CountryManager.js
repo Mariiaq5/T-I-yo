@@ -26,7 +26,7 @@ export const getCountryById = (id) => {
 }
 
 export const editCountry = (country) => {
-    return fetch(`${baseUrl}/${country.id}`, {
+    return fetch(`${baseUrl}/edit/${country.id}`, {
         method: "PUT", 
         headers: {
             "Content-Type": "application/json",
@@ -36,9 +36,9 @@ export const editCountry = (country) => {
 };
 
 export const deleteCountry = (id) => {
-    return fetch(`${baseUrl}/${id}`, {
+    return fetch(`${baseUrl}/delete/${id}`, {
       method: "DELETE"
-    })
+    });
   }
   
   export const getFoodByCountryId = (id) => {
