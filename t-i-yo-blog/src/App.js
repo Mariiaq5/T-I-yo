@@ -4,6 +4,7 @@ import Header from "./Components/Header";
 import ApplicationView from "./Components/ApplicationView";
 import { useEffect } from 'react';
 import Authorize from './Components/Authorize';
+import Home from "./Components/Home/Home";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -24,8 +25,8 @@ function App() {
                 :
                 <Authorize setIsLoggedIn={setIsLoggedIn} />
             }
+            <Home/>
         </Router>
     );
 }
-
 export default App;

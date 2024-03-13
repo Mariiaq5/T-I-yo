@@ -44,10 +44,9 @@ namespace T_I_yo_blog.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Places (Id, Name, CountryId, CityId, Description, PlaceType)
+                    cmd.CommandText = @"INSERT INTO Places (Name, CountryId, CityId, Description, PlaceType)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@id, @name, @countryId, @cityId, @description, @placeType)";
-                    DbUtils.AddParameter(cmd, "@id", place.Id);
+                                        VALUES (@name, @countryId, @cityId, @description, @placeType)";
                     DbUtils.AddParameter(cmd, "@name", place.Name);
                     DbUtils.AddParameter(cmd, "@countryId", place.CountryId);
                     DbUtils.AddParameter(cmd, "@cityId", place.CityId);

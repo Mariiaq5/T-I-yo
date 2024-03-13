@@ -52,7 +52,7 @@ namespace T_I_yo_blog.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("edit/{id}")]
         public IActionResult UpdatePlace(int id, City city)
         {
             if (id != city.Id)

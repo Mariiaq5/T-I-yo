@@ -40,10 +40,9 @@ namespace T_I_yo_blog.Repositories {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Food (Id, Name, CountryId)
+                    cmd.CommandText = @"INSERT INTO Food (Name, CountryId)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@Id, @Name, @CountryId)";
-                    DbUtils.AddParameter(cmd, "@id", food.Id);
+                                        VALUES (@Name, @CountryId)";
                     DbUtils.AddParameter(cmd, "@Name", food.Name);
                     DbUtils.AddParameter(cmd, "@CountryId", food.CountryId);
                     food.Id = (int)cmd.ExecuteScalar();

@@ -21,7 +21,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
   return (
     <div>
       <Navbar color="dark" dark expand="md">
-        <NavbarBrand tag={RRNavLink} to="/">T-I-yo✈️</NavbarBrand>
+        <NavbarBrand tag={RRNavLink} to="/">T-I-yo</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>

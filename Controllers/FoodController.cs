@@ -51,7 +51,7 @@ namespace T_I_yo_blog.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("edit/{id}")]
         public IActionResult Update(int id, Food food)
         {
             if (id != food.Id)

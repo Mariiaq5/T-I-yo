@@ -71,11 +71,15 @@ export const CountryDetails = () => {
                     <table class="table table-striped">
                       <tbody>
                       {cities.map((city) => (
-                        <tr key={city.city?.id}>
-                          <td>{city.city?.name}</td>
+                        <tr key={city.city?.id}>   
+                          <td>{city.city?.name}
+                          <button class="btn btn-outline-info btn-sm">Update</button>
+                          <button class="btn btn-outline-danger btn-sm">Delete</button>
+                          </td>
                         </tr>                     
                         ))}
                       </tbody>
+                      <button class="btn btn-outline-success btn-lg">Add</button>
                     </table>
                    </div>
                    </div>
@@ -86,18 +90,17 @@ export const CountryDetails = () => {
                    <div class="card text-row">
                     <h3 class="text-center">Food to try:</h3>
                     <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                        </tr>
-                      </thead>
                       <tbody>
                       {foods.map((food) => (
                         <tr key={food.food?.id}>
-                          <td>{food.food?.name}</td>
+                          <td>{food.food?.name}
+                          <button class="btn btn-outline-info btn-sm">Update</button>
+                          <button class="btn btn-outline-danger btn-sm">Delete</button>
+                          </td>
                         </tr>                     
                         ))}
                       </tbody>
+                      <button class="btn btn-outline-success btn-lg">Add</button>
                     </table>
                    </div>
                    </div>
@@ -120,10 +123,14 @@ export const CountryDetails = () => {
                         <tr key={place.place?.id}>
                           <td>{place.place?.name}</td>
                           <td>{place.place?.placeType}</td>
-                          <td>{place.place?.description}</td>
+                          <td>{place.place?.description}
+                          <button class="btn btn-outline-info btn-sm">Update</button>
+                          <button class="btn btn-outline-danger btn-sm">Delete</button>
+                          </td>
                         </tr>                     
                         ))}
                       </tbody>
+                      <button class="btn btn-outline-success btn-lg">Add</button>
                     </table>
                    </div>
                    </div>
