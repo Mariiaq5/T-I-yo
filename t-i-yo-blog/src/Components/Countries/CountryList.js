@@ -37,7 +37,7 @@ export const CountryList = () => {
         });
 
     return (
-<div>
+<div class="container">
         <div class="mb-3">
           <input
             type="text"
@@ -47,23 +47,18 @@ export const CountryList = () => {
             onChange={handleSearch}
           />
         </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Slogan</th>
-                <th>Capital</th>
-            </tr>
-        </thead>
-        <tbody>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
             {filteredCountries.map((country) => (
-                <tr key={country.id}>
-                    <td>{country.name}</td>
-                    <td>{country.description}</td>
-                    <td>{country.slogan}</td>
-                    <td>{country.capital}</td>
-                    <td>
+                <div class="card text-center w-25" key={country.id}>
+                <img class="card-img-top" src="https://kiyavia.com/files/travel-provider/zakarpattya/mesta/Zakarpattya_1920.jpg" alt="Card image cap"/>
+                <div class="card-body">
+                <h5 class="card-title">{country.name}</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{country.description}</li>
+                    <li class="list-group-item"> capital: {country.capital}</li>
+                    <li class="list-group-item">{country.slogan}</li>
+                </ul>
                     <button class="btn btn-outline-info btn-sm" onClick={() =>navigate(`details/${country.id}`)}>Read More</button>
 
                     { userLS.admin == true ? (
@@ -72,13 +67,10 @@ export const CountryList = () => {
                     <button class="btn btn-outline-success btn-sm" onClick={() => navigate(`edit/${country.id}`)}>Update Country</button>
                         </>
                     ) : (<></>)
-                    }
-                    </td>
-                    
-                </tr>
+                    }                  
+                </div>
             ))}
-        </tbody>
-    </table>
-</div>
+             </div>
+                </div>
     )
 };
