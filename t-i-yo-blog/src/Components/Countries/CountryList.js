@@ -35,7 +35,7 @@ export const CountryList = () => {
             const countryName = country.name.toLowerCase().includes(search.toLowerCase());
             return countryName;
         });
-
+//getImages in seperate state and then map through the images around the image src and then create a ternerary statement like in country details that if the country.id ==== image.countryId it'll give that source
     return (
 <div class="container">
         <div class="mb-3">

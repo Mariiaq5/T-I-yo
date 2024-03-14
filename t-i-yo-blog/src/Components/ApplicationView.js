@@ -6,7 +6,7 @@ import { UserProfileList } from "./UserProfiles/UserProfileList";
 import UserProfileDetails from "./UserProfiles/UserProfileDetails";
 import { CountryAdd } from "./Countries/CountryAdd";
 import { CountryDetails } from "./Countries/CountryDetails";
-
+import Home from "./Home/Home";
 export default function ApplicationViews() {
   
   return (
@@ -18,6 +18,7 @@ export default function ApplicationViews() {
           <Route path="/users" element={<UserProfileList />} />
         <Route path="/users/:id" element={<UserProfileDetails />} />
         <Route path="/countries/details/:id" element={<CountryDetails/>} />
+        <Route path="/" element={<Home/>} />
       </Routes>
     </>
   );
