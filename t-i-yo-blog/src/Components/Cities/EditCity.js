@@ -13,7 +13,7 @@ export const EditCity = () => {
     useEffect(() => {
         getCityById(id)
             .then((data) => {
-                setCity(data[0]);
+                setCity(data);
             });
     }, []);
 
@@ -22,19 +22,24 @@ export const EditCity = () => {
         editCity(city).then(() => navigate(`/countries/details/${city.countryId}`));
     };
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setCity((prevCity) => ({
-            ...prevCity,
-            [name]: value
-        }));
-    };
+    // const handleInputChange = (event) => {
+    //     const { name, value } = event.target;
+    //     setCity((prevCity) => ({
+    //         ...prevCity,
+    //         [name]: value
+    //     }));
+    // };
 
     return (
         <div>
             <form onSubmit={handleSubmit}>
                 <div className="row">
-                    <input type="text" id="name" placeholder="name" name="name" value={city.name} onChange={handleInputChange} />
+                    <input type="text" id="name" placeholder="name" name="name" value={city.name} onChange={(e) => {
+                        const copy = {...city}
+                        copy.name = e.target.value
+                        setCity(copy)
+                    }
+                    } />
                 </div>
                 <button type="submit">Save</button>
             </form>

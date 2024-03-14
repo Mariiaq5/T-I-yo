@@ -51,7 +51,7 @@ namespace T_I_yo_blog.Repositories
                 }
             }
         }
-          public List<City> GetById(int id)
+          public City GetById(int id)
           {
               using (var conn = Connection)
               {
@@ -61,23 +61,23 @@ namespace T_I_yo_blog.Repositories
                       cmd.CommandText = "SELECT Id, Name, CountryId FROM Cities " +
                                         "WHERE Id = @Id";
                       DbUtils.AddParameter(cmd, "@Id", id);
-
+                    City newCity = null;
                       using (var reader = cmd.ExecuteReader())
                       {
-                          if (reader.Read())
-                          {
-                              return new List<City>() {new City()
-                       {
-                           Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                           Name = reader.GetString(reader.GetOrdinal("Name")),
-                           CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
-                       }};
-                          }
-                          else
-                          {
-                              return null;
-                          }
-                      }
+                        if (reader.Read())
+                        {
+                            newCity = new City()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
+                            };
+                        }
+                            reader.Close();
+                        return newCity;
+;
+                    }
+                        
                   }
               } 
     } 

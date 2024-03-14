@@ -13,13 +13,13 @@ export const EditFood = () => {
     useEffect(() => {
         getFoodById(id)
             .then((data) => {
-                setFood(data[0]);
+                setFood(data);
             });
     }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        editFood(food).then(() => navigate(`/countries/details/${id}`));
+        editFood(food).then(() => navigate(`/countries/details/${food.countryId}`));
     };
 
     const handleInputChange = (event) => {
@@ -34,7 +34,7 @@ export const EditFood = () => {
         <div>
             <form onSubmit={handleSubmit}>
                 <div className="row">
-                    <input type="text" id="name" placeholder="name" name="name" value={food.name} onChange={handleInputChange} />
+                    <input type="text" id="name" placeholder="name" name="name" value={food.food?.name} onChange={handleInputChange} />
                 </div>
                 <button type="submit">Save</button>
             </form>
