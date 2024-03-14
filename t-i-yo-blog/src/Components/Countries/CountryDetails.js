@@ -5,6 +5,8 @@ import { getCountryById } from "../../Managers/CountryManager";
 import { getCitiesByCountryId } from "../../Managers/CountryManager";
 import { getFoodByCountryId } from "../../Managers/CountryManager";
 import { getPlacesByCountryId } from "../../Managers/CountryManager";
+import { deleteCity } from "../../Managers/CityManager";
+import { useNavigate } from "react-router-dom";
 
 export const CountryDetails = () => {
   const [country, setCountry] = useState({});
@@ -12,6 +14,7 @@ export const CountryDetails = () => {
   const [foods, setFoods] = useState([]);
   const [places, setPlaces] = useState([]);
   const { id } = useParams();
+  const navigate = useNavigate();
 
 //console.log(country)
   const getCountry = () => {
@@ -43,6 +46,11 @@ export const CountryDetails = () => {
     getPlaces();
   }, [id]);
 
+  //check this with Sarah
+  const handleDeleteCity = (id) => {
+    deleteCity(id)
+  }
+
   return (
         <div class="container-fluid">
           <div class="row">
@@ -73,13 +81,16 @@ export const CountryDetails = () => {
                       {cities.map((city) => (
                         <tr key={city.city?.id}>   
                           <td>{city.city?.name}
-                          <button class="btn btn-outline-info btn-sm">Update</button>
-                          <button class="btn btn-outline-danger btn-sm">Delete</button>
+                          <button class="btn btn-outline-info btn-sm" onClick={() =>navigate(`/cities/edit/${city.city?.id}`)}>Update</button>
+                         {places.some(x => x.place?.cityId === city.city?.id) ? <></> 
+                         : 
+                          <button class="btn btn-outline-danger btn-sm" onClick={() =>handleDeleteCity(`${city.city?.id}`)}>Delete</button>
+                         }                      
                           </td>
                         </tr>                     
                         ))}
                       </tbody>
-                      <button class="btn btn-outline-success btn-lg">Add</button>
+                      <button class="btn btn-outline-success btn-lg"  onClick={() =>navigate(`/cities/add`)}>Add</button>
                     </table>
                    </div>
                    </div>
@@ -94,13 +105,16 @@ export const CountryDetails = () => {
                       {foods.map((food) => (
                         <tr key={food.food?.id}>
                           <td>{food.food?.name}
-                          <button class="btn btn-outline-info btn-sm">Update</button>
+                          <button class="btn btn-outline-info btn-sm" onClick={() =>navigate(`/food/edit/${food.food?.id}`)}>Update</button>
+                          {places.some(x => x.place?.foodId === food.food?.id) ? <></> 
+                         : 
                           <button class="btn btn-outline-danger btn-sm">Delete</button>
+                          }
                           </td>
                         </tr>                     
                         ))}
                       </tbody>
-                      <button class="btn btn-outline-success btn-lg">Add</button>
+                      <button class="btn btn-outline-success btn-lg" onClick={() =>navigate(`/food/add`)}>Add</button>
                     </table>
                    </div>
                    </div>
@@ -124,13 +138,16 @@ export const CountryDetails = () => {
                           <td>{place.place?.name}</td>
                           <td>{place.place?.placeType}</td>
                           <td>{place.place?.description}
-                          <button class="btn btn-outline-info btn-sm">Update</button>
+                          <button class="btn btn-outline-info btn-sm" onClick={() =>navigate(`/places/edit/${place.place?.id}`)}>Update</button>
+                          {places.some(x => x.place?.placeId === place.place?.id) ? <></> 
+                         : 
                           <button class="btn btn-outline-danger btn-sm">Delete</button>
+                          }
                           </td>
                         </tr>                     
                         ))}
                       </tbody>
-                      <button class="btn btn-outline-success btn-lg">Add</button>
+                      <button class="btn btn-outline-success btn-lg" onClick={() =>navigate(`/places/add`)}>Add</button>
                     </table>
                    </div>
                    </div>

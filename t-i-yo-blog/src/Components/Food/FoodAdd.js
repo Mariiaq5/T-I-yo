@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { addFood } from '../../Managers/FoodManager';
 
 
-  export const addFood = ({ onSave }) => {
+  export const FoodAdd = ({ onSave }) => {
   const [newFoodName, setNewFoodName] = useState('');
   const navigate = useNavigate()
 

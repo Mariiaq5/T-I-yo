@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { addPlace } from '../../Managers/PlaceManager';
 
-  export const addPlace = ({ onSave }) => {
+  export const PlaceAdd = ({ onSave }) => {
   const [newPlaceName, setNewPlaceName] = useState('');
-  const [newPlaceType, setPlaceType] = useState('');
-  const [newPlaceDescription, setPlaceDescription] = useState('');
+  const [newPlaceType, setNewPlaceType] = useState('');
+  const [newPlaceDescription, setNewPlaceDescription] = useState('');
   const navigate = useNavigate()
 
 
@@ -17,7 +17,7 @@ import { addPlace } from '../../Managers/PlaceManager';
         placeType: newPlaceType,
         description: newPlaceDescription,
       };
-      const response = await addPlaces(newPlaces);
+      const response = await addPlace(newPlace);
       if (response.ok) {
         onSave();
         setNewPlaceName('');
@@ -43,7 +43,7 @@ import { addPlace } from '../../Managers/PlaceManager';
         </label>
         <label>
           Description:
-          <input type="text" value={newCountryDescription} onChange={(e) => setNewCountryDescription(e.target.value)} />
+          <input type="text" value={newPlaceDescription} onChange={(e) => setNewPlaceDescription(e.target.value)} />
         </label>
         <button type="submit" class="btn btn-success">Save</button>
       </form>

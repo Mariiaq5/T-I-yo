@@ -29,7 +29,7 @@ namespace T_I_yo_blog.Controllers
             return CreatedAtAction(
                 "Get", new { id = city.Id }, city);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)
         {
             try
@@ -65,7 +65,7 @@ namespace T_I_yo_blog.Controllers
             return NoContent();
         }
 
-       /* [HttpGet("{id}")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             var city = _cityRepository.GetById(id);
@@ -74,7 +74,7 @@ namespace T_I_yo_blog.Controllers
                 return NotFound();
             }
             return Ok(city);
-        } */
+        } 
 
         [HttpGet("/bycountry={countryId}")]
         public IActionResult GetCitiesByCountryId(int countryId)

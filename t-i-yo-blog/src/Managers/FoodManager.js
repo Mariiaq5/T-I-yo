@@ -25,3 +25,9 @@ export const deleteFood = (id) => {
       method: "DELETE"
     });
   }
+
+  export const getFoodById = (id) => {
+    return fetch(`${baseUrl}/${id}`) 
+    .then((res) => res.json()
+    );
+}

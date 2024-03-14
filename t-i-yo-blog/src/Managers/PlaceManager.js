@@ -25,3 +25,9 @@ export const deletePlace = (id) => {
       method: "DELETE"
     });
   }
+
+  export const getPlaceById = (id) => {
+    return fetch(`${baseUrl}/${id}`) 
+    .then((res) => res.json()
+    );
+}

@@ -25,3 +25,9 @@ export const deleteCity = (id) => {
       method: "DELETE"
     });
   }
+
+  export const getCityById = (id) => {
+    return fetch(`${baseUrl}/${id}`) 
+    .then((res) => res.json()
+    );
+}

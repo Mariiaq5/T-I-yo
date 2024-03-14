@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router';
 import { addCity } from '../../Managers/CityManager';
 
 
-  export const addCity = ({ onSave }) => {
-  const [newCityName, setNewCountryName] = useState('');
+  export const CityAdd = ({ onSave }) => {
+  const [newCityName, setNewCityName] = useState('');
   const navigate = useNavigate()
 
 
