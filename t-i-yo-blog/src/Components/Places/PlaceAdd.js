@@ -1,50 +1,49 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { addPlace } from '../../Managers/PlaceManager';
+import { useParams } from 'react-router-dom';
 
-  export const PlaceAdd = ({ onSave }) => {
-  const [newPlaceName, setNewPlaceName] = useState('');
-  const [newPlaceType, setNewPlaceType] = useState('');
-  const [newPlaceDescription, setNewPlaceDescription] = useState('');
+
+  export const PlaceAdd = () => {
+    const { id } = useParams();
+    const [newPlace, setNewPlace] = useState({
+      name: "",
+      placeType: "",
+      description: "",
+      countryId: id
+    });
   const navigate = useNavigate()
 
-
-  const handleSave = async (e) => {
-    e.preventDefault();
-    try {
-      const newPlace = {
-        name: newPlaceName,
-        placeType: newPlaceType,
-        description: newPlaceDescription,
-      };
-      const response = await addPlace(newPlace);
-      if (response.ok) {
-        onSave();
-        setNewPlaceName('');
-      } else {
-        console.error('Failed to add place:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error adding place:', error);
-    }
-    navigate('/places');
+  const handleInputChange = (event) => {
+    const { name, value } = event.target
+    setNewPlace({
+      ...newPlace,
+      [name]: value
+    });
   };
+
+  const handleSubmit = () => {
+    addPlace(newPlace)
+    navigate(`/countries/details/${id}`)
+  };
+
   return (
     <div className='place-form'>
       <h1>Add a new Place</h1>
-      <form onSubmit={handleSave}>
+      <form onSubmit={handleSubmit}>
         <label>
           Place Name:
-          <input type="text" value={newPlaceName} onChange={(e) => setNewPlaceName(e.target.value)} />
         </label>
+        <input type="text" id="name" name="name" value={newPlace.name} onChange={handleInputChange} />
         <label>
-          Place Type:
-          <input type="text" value={newPlaceType} onChange={(e) => setNewPlaceType(e.target.value)} />
+          Place Place Type:
         </label>
+        <input type="text" id="name" name="placeType" value={newPlace.placeType} onChange={handleInputChange} />
         <label>
-          Description:
-          <input type="text" value={newPlaceDescription} onChange={(e) => setNewPlaceDescription(e.target.value)} />
+          Place Description:
         </label>
+        <input type="text" id="name" name="description" value={newPlace.description} onChange={handleInputChange} />
+        
         <button type="submit" class="btn btn-success">Save</button>
       </form>
     </div>

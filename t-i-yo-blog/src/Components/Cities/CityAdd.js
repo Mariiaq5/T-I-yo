@@ -1,39 +1,38 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { addCity } from '../../Managers/CityManager';
+import { useParams } from 'react-router-dom';
 
 
-  export const CityAdd = ({ onSave }) => {
-  const [newCityName, setNewCityName] = useState('');
+  export const CityAdd = () => {
+    const { id } = useParams();
+    const [newCity, setNewCity] = useState({
+      name: "",
+      countryId: id
+    });
   const navigate = useNavigate()
 
-
-  const handleSave = async (e) => {
-    e.preventDefault();
-    try {
-      const newCity = {
-        name: newCityName,
-      };
-      const response = await addCity(newCity);
-      if (response.ok) {
-        onSave();
-        setNewCityName('');
-      } else {
-        console.error('Failed to add city:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error adding city:', error);
-    }
-    navigate('/cities');
+  const handleInputChange = (event) => {
+    const { name, value } = event.target
+    setNewCity({
+      ...newCity,
+      [name]: value
+    });
   };
+
+  const handleSubmit = () => {
+    addCity(newCity)
+    navigate(`/countries/details/${id}`)
+  };
+
   return (
     <div className='city-form'>
       <h1>Add a new City</h1>
-      <form onSubmit={handleSave}>
+      <form onSubmit={handleSubmit}>
         <label>
           City Name:
-          <input type="text" value={newCityName} onChange={(e) => setNewCityName(e.target.value)} />
         </label>
+        <input type="text" id="name" name="name" value={newCity.name} onChange={handleInputChange} />
         <button type="submit" class="btn btn-success">Save</button>
       </form>
     </div>

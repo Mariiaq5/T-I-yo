@@ -36,13 +36,13 @@ export const EditPlace = () => {
         <div>
             <form onSubmit={handleSubmit}>
                 <div className="row">
-                    <input type="text" id="name" placeholder="name" name="name" value={place.place?.name} onChange={handleInputChange} />
+                    <input type="text" id="name" placeholder="name" name="name" value={place.name} onChange={handleInputChange} />
                 </div>
                 <div className="row">
-                    <input type="text" id="placeType" name="placeType" value={place.place?.placeType} onChange={handleInputChange} />
+                    <input type="text" id="placeType" placeholder="placeType" name="placeType" value={place.placeType} onChange={handleInputChange} />
                 </div>
                 <div className="row">
-                    <input type="text" id="description" name="description" value={place.place?.description} onChange={handleInputChange} />
+                    <input type="text" id="description" placeholder="description" name="description" value={place.description} onChange={handleInputChange} />
                 </div>
                 <button type="submit">Save</button>
             </form>

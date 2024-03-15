@@ -7,6 +7,11 @@ export const addPlace = (singlePlace) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(singlePlace),
+
+        name: singlePlace.name,
+        placeType: singlePlace.placeType,
+        description: singlePlace.description, 
+        countryId: singlePlace.countryId
     });
 };
 

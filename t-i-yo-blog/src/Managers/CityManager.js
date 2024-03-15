@@ -7,6 +7,9 @@ export const addCity = (singleCity) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(singleCity),
+
+        name: singleCity.name, 
+        countryId: singleCity.countryId
     });
 };
 

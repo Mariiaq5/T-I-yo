@@ -34,7 +34,7 @@ export const EditFood = () => {
         <div>
             <form onSubmit={handleSubmit}>
                 <div className="row">
-                    <input type="text" id="name" placeholder="name" name="name" value={food.food?.name} onChange={handleInputChange} />
+                    <input type="text" id="name" placeholder="name" name="name" value={food.name} onChange={handleInputChange} />
                 </div>
                 <button type="submit">Save</button>
             </form>

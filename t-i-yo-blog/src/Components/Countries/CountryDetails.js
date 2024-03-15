@@ -99,7 +99,7 @@ export const CountryDetails = () => {
                         </tr>                     
                         ))}
                       </tbody>
-                      <button class="btn btn-outline-success btn-lg"  onClick={() =>navigate(`/cities/add`)}>Add</button>
+                      <button class="btn btn-outline-success btn-lg"  onClick={() =>navigate(`/cities/add/${id}`)}>Add</button>
                     </table>
                    </div>
                    </div>
@@ -156,7 +156,7 @@ export const CountryDetails = () => {
                         </tr>                     
                         ))}
                       </tbody>
-                      <button class="btn btn-outline-success btn-lg" onClick={() =>navigate(`/places/add`)}>Add</button>
+                      <button class="btn btn-outline-success btn-lg" onClick={() =>navigate(`/places/add/${id}`)}>Add</button>
                     </table>
                    </div>
                    </div>

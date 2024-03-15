@@ -26,11 +26,11 @@ export default function ApplicationViews() {
         <Route path="/users/:id" element={<UserProfileDetails />} />
         <Route path="/countries/details/:id" element={<CountryDetails/>} />
         <Route path="/cities/edit/:id" element={<EditCity/>} />
-        <Route path="/cities/add" element={<CityAdd/>} />
+        <Route path="/cities/add/:id" element={<CityAdd/>} />
         <Route path="/food/add/:id" element={<FoodAdd />} />
         <Route path="/food/edit/:id" element={<EditFood/>} />
         <Route path="/places/edit/:id" element={<EditPlace/>} />
-        <Route path="/places/add" element={<PlaceAdd/>} />
+        <Route path="/places/add/:id" element={<PlaceAdd/>} />
         <Route path="/" element={<Home/>} />
       </Routes>
     </>
