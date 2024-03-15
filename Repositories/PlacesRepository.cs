@@ -57,7 +57,7 @@ namespace T_I_yo_blog.Repositories
             }
         }
 
-        public List<Place> GetById(int id)
+        public Place GetById(int id)
         {
             using (var conn = Connection)
             {
@@ -68,23 +68,23 @@ namespace T_I_yo_blog.Repositories
                                       "WHERE Id = @Id";
                     DbUtils.AddParameter(cmd, "@Id", id);
 
+                    Place newPlace = null;
+
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            return new List<Place>() {new Place()
+                             newPlace = new Place()
                     {
                         Id = reader.GetInt32(reader.GetOrdinal("Id")),
                         Name = reader.GetString(reader.GetOrdinal("Name")),
                         CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
                         CityId = reader.GetInt32(reader.GetOrdinal("CityId")),
                         Description = reader.GetString(reader.GetOrdinal("Description")),
-                    }};
+                    };
                         }
-                        else
-                        {
-                            return null;
-                        }
+                          reader.Close();
+                        return newPlace;
                     }
                 }
             }

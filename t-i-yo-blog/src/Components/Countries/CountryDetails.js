@@ -7,6 +7,8 @@ import { getFoodByCountryId } from "../../Managers/CountryManager";
 import { getPlacesByCountryId } from "../../Managers/CountryManager";
 import { deleteCity } from "../../Managers/CityManager";
 import { useNavigate } from "react-router-dom";
+import { deleteFood } from "../../Managers/FoodManager";
+import { deletePlace } from "../../Managers/PlaceManager";
 
 export const CountryDetails = () => {
   const [country, setCountry] = useState({});
@@ -46,9 +48,16 @@ export const CountryDetails = () => {
     getPlaces();
   }, [id]);
 
-  //check this with Sarah
   const handleDeleteCity = (id) => {
     deleteCity(id)
+  }
+
+  const handleDeleteFood = (id) => {
+    deleteFood(id)
+  }
+
+  const handleDeletePlace = (id) => {
+    deletePlace(id)
   }
 
   return (
@@ -108,13 +117,13 @@ export const CountryDetails = () => {
                           <button class="btn btn-outline-info btn-sm" onClick={() =>navigate(`/food/edit/${food.food?.id}`)}>Update</button>
                           {places.some(x => x.place?.foodId === food.food?.id) ? <></> 
                          : 
-                          <button class="btn btn-outline-danger btn-sm">Delete</button>
+                          <button class="btn btn-outline-danger btn-sm" onClick={() =>handleDeleteFood(`${food.food?.id}`)}>Delete</button>
                           }
                           </td>
                         </tr>                     
                         ))}
                       </tbody>
-                      <button class="btn btn-outline-success btn-lg" onClick={() =>navigate(`/food/add`)}>Add</button>
+                      <button class="btn btn-outline-success btn-lg" onClick={() =>navigate(`/food/add/${id}`)}>Add</button>
                     </table>
                    </div>
                    </div>
@@ -141,7 +150,7 @@ export const CountryDetails = () => {
                           <button class="btn btn-outline-info btn-sm" onClick={() =>navigate(`/places/edit/${place.place?.id}`)}>Update</button>
                           {places.some(x => x.place?.placeId === place.place?.id) ? <></> 
                          : 
-                          <button class="btn btn-outline-danger btn-sm">Delete</button>
+                          <button class="btn btn-outline-danger btn-sm" onClick={() =>handleDeletePlace(`${place.place?.id}`)}>Delete</button>
                           }
                           </td>
                         </tr>                     

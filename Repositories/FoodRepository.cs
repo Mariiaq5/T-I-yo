@@ -50,7 +50,7 @@ namespace T_I_yo_blog.Repositories {
             }
         }
 
-        public List<Food> GetById(int id)
+        public Food GetById(int id)
         {
             using (var conn = Connection)
             {
@@ -61,21 +61,21 @@ namespace T_I_yo_blog.Repositories {
                                       "WHERE Id = @Id";
                     DbUtils.AddParameter(cmd, "@Id", id);
 
+                    Food newFood = null;
+
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            return new List<Food>() {new Food()
+                            newFood = new Food()
                     {
                         Id = reader.GetInt32(reader.GetOrdinal("Id")),
                         Name = reader.GetString(reader.GetOrdinal("Name")),
                         CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
-                    }};
+                    };
                         }
-                        else
-                        {
-                            return null;
-                        }
+                        reader.Close();
+                        return newFood;
                     }
                 }
             }

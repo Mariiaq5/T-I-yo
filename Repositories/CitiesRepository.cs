@@ -61,7 +61,9 @@ namespace T_I_yo_blog.Repositories
                       cmd.CommandText = "SELECT Id, Name, CountryId FROM Cities " +
                                         "WHERE Id = @Id";
                       DbUtils.AddParameter(cmd, "@Id", id);
-                    City newCity = null;
+
+                      City newCity = null;
+
                       using (var reader = cmd.ExecuteReader())
                       {
                         if (reader.Read())

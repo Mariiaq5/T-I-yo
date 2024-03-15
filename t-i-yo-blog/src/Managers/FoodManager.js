@@ -6,7 +6,12 @@ export const addFood = (singleFood) => {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(singleFood),
+        body: JSON.stringify({
+
+        name: singleFood.name, 
+        countryId: singleFood.countryId
+
+        }),
     });
 };
 
