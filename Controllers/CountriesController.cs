@@ -30,7 +30,7 @@ namespace T_I_yo_blog.Controllers
             return CreatedAtAction(
                 "Get", new { id = country.Id }, country);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)
         {
             try
@@ -53,7 +53,7 @@ namespace T_I_yo_blog.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("edit/{id}")]
         public IActionResult UpdateCountry(int id, Country country)
         {
             if (id != country.Id)
@@ -75,6 +75,39 @@ namespace T_I_yo_blog.Controllers
                 return NotFound();
             }
             return Ok(city);
+        }
+
+        [HttpGet("getfoodbycountryid")]
+        public IActionResult GetFoodByCountryId(int id)
+        {
+            var food = _countryRepository.GetFoodByCountryId(id);
+            if (food == null)
+            {
+                return NotFound();
+            }
+            return Ok(food);
+        }
+
+        [HttpGet("getcitiesbycountryid")]
+        public IActionResult GetCitiesByCountryId(int id)
+        {
+            var city = _countryRepository.GetCitiesByCountryId(id);
+            if (city == null)
+            {
+                return NotFound();
+            }
+            return Ok(city);
+        }
+
+        [HttpGet("getplacebycountryid")]
+        public IActionResult GetPlacesByCountryId(int id)
+        {
+            var place = _countryRepository.GetPlacesByCountryId(id);
+            if (place == null)
+            {
+                return NotFound();
+            }
+            return Ok(place);
         }
     }
 }

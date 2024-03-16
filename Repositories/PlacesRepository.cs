@@ -44,10 +44,9 @@ namespace T_I_yo_blog.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Places (Id, Name, CountryId, CityId, Description, PlaceType)
+                    cmd.CommandText = @"INSERT INTO Places (Name, CountryId, CityId, Description, PlaceType)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@id, @name, @countryId, @cityId, @description, @placeType)";
-                    DbUtils.AddParameter(cmd, "@id", place.Id);
+                                        VALUES (@name, @countryId, @cityId, @description, @placeType)";
                     DbUtils.AddParameter(cmd, "@name", place.Name);
                     DbUtils.AddParameter(cmd, "@countryId", place.CountryId);
                     DbUtils.AddParameter(cmd, "@cityId", place.CityId);
@@ -58,7 +57,7 @@ namespace T_I_yo_blog.Repositories
             }
         }
 
-        public List<Place> GetById(int id)
+        public Place GetById(int id)
         {
             using (var conn = Connection)
             {
@@ -69,23 +68,23 @@ namespace T_I_yo_blog.Repositories
                                       "WHERE Id = @Id";
                     DbUtils.AddParameter(cmd, "@Id", id);
 
+                    Place newPlace = null;
+
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            return new List<Place>() {new Place()
+                             newPlace = new Place()
                     {
                         Id = reader.GetInt32(reader.GetOrdinal("Id")),
                         Name = reader.GetString(reader.GetOrdinal("Name")),
                         CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
                         CityId = reader.GetInt32(reader.GetOrdinal("CityId")),
                         Description = reader.GetString(reader.GetOrdinal("Description")),
-                    }};
+                    };
                         }
-                        else
-                        {
-                            return null;
-                        }
+                          reader.Close();
+                        return newPlace;
                     }
                 }
             }
@@ -116,11 +115,11 @@ namespace T_I_yo_blog.Repositories
                  SET Name = @name, CountryId = @countryId, CityId = @cityId, Description = @description, PlaceType = @placeType
                  WHERE id = @id";
                     cmd.Parameters.AddWithValue("@name", place.Name);
-                    cmd.Parameters.AddWithValue("@id", place.Id);
                     cmd.Parameters.AddWithValue("@countryId", place.CountryId);
                     cmd.Parameters.AddWithValue("@cityId", place.CityId);
                     cmd.Parameters.AddWithValue("@description", place.Description);
                     cmd.Parameters.AddWithValue("@placeType", place.PlaceType);
+                    cmd.Parameters.AddWithValue("@id", place.Id);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -133,7 +132,7 @@ namespace T_I_yo_blog.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-            SELECT Id, [Name] FROM Places
+            SELECT Id, [Name], PlaceType, Description, CityId, CountryId FROM Places
             WHERE Id = @id
             ";
                     cmd.Parameters.AddWithValue("@id", id);
@@ -144,12 +143,51 @@ namespace T_I_yo_blog.Repositories
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Name = reader.GetString(reader.GetOrdinal("Name")),
+                            PlaceType = reader.GetString(reader.GetOrdinal("PlaceType")),
+                            CityId = reader.GetInt32(reader.GetOrdinal("CityId")),
+                            Description = reader.GetString(reader.GetOrdinal("Description")),
+                            CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
                         };
                         reader.Close();
                         return places;
                     }
                     reader.Close();
                     return null;
+                }
+            }
+        }
+
+        //get places by countryId
+        public List<Place> GetPlacesByCountryId(int countryId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Select Id, Name, PlaceType, CityId, Description, CountryId from Places
+                                       Where CountryId = @countryId";
+                    DbUtils.AddParameter(cmd, "@countryId", countryId);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new List<Place>() {new Place()
+                     {
+                         Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                         Name = reader.GetString(reader.GetOrdinal("Name")),
+                         PlaceType = reader.GetString(reader.GetOrdinal("PlaceType")),
+                         CityId = reader.GetInt32(reader.GetOrdinal("CityId")),
+                         Description = reader.GetString(reader.GetOrdinal("Description")),
+                         CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
+                     }};
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
                 }
             }
         }

@@ -17,8 +17,8 @@ namespace T_I_yo_blog.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT u.Id, u.Name, u.DisplayName, u.Email, u.Password, u.Admin
-                          FROM User u
-                         ORDER BY up.DisplayName";
+                          FROM Users u
+                         ORDER BY u.DisplayName";
 
                     List<User> users = new List<User>();
 
@@ -32,7 +32,7 @@ namespace T_I_yo_blog.Repositories
                             DisplayName = DbUtils.GetString(reader, "DisplayName"),
                             Email = DbUtils.GetString(reader, "Email"),
                             Password = DbUtils.GetString(reader, "Password"),
-                            //Admin = DbUtils.(reader, "Admin")
+                            Admin = reader.GetBoolean(reader.GetOrdinal("Admin"))
                         });
                     }
                     reader.Close();
@@ -51,7 +51,7 @@ namespace T_I_yo_blog.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT u.Id, u.Name, u.DisplayName, u.Email, u.Password, u.Admin
-                          FROM User u
+                          FROM Users u
                          WHERE Email = @email";
 
                     DbUtils.AddParameter(cmd, "@email", email);
@@ -68,7 +68,7 @@ namespace T_I_yo_blog.Repositories
                             DisplayName = DbUtils.GetString(reader, "DisplayName"),
                             Email = DbUtils.GetString(reader, "Email"),
                             Password = DbUtils.GetString(reader, "Password"),
-                            //Admin = DbUtils.GetString(reader, "Admin")
+                            Admin = reader.GetBoolean(reader.GetOrdinal("Admin"))
                         };
                     }
                     reader.Close();
@@ -87,8 +87,8 @@ namespace T_I_yo_blog.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT u.Id, u.Name, u.DisplayName, u.Email, u.Password, u.Admin
-                          FROM User u
-                         WHERE up.Id = @Id";
+                          FROM Users u
+                         WHERE u.Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
@@ -121,7 +121,7 @@ namespace T_I_yo_blog.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO UserProfile (Name, DisplayName, Email, Password, Admin)
+                    cmd.CommandText = @"INSERT INTO Users (Name, DisplayName, Email, Password, Admin)
                                         OUTPUT INSERTED.ID
                                         VALUES (@Name, @DisplayName, @Email, @Password, @Admin)";
                     DbUtils.AddParameter(cmd, "@Name", user.Name);
@@ -157,17 +157,13 @@ namespace T_I_yo_blog.Repositories
                 {
                     cmd.CommandText = @"
                  UPDATE Users
-                 SET [Name] = @name
-                 SET [DisplayName] = @displayName
-                 SET [Email] = @email
-                 SET [Password] = @password
-                 SET [Admin] = @admin
+                 SET Name = @name, DisplayName = @displayName, Email = @email, Password = @password, Admin = @admin
                  WHERE id = @id";
                     cmd.Parameters.AddWithValue("@name", user.Name);
                     cmd.Parameters.AddWithValue("@id", user.Id);
                     cmd.Parameters.AddWithValue("@displayName", user.DisplayName);
                     cmd.Parameters.AddWithValue("@email", user.Email);
-                    cmd.Parameters.AddWithValue("@description", user.Password);
+                    cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@admin", user.Admin);
                     cmd.ExecuteNonQuery();
                 }

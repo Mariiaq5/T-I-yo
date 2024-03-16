@@ -8,7 +8,7 @@ namespace T_I_yo_blog.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    class UsersController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUsersRepository _usersRepository;
         public UsersController(IUsersRepository usersRepository)
@@ -64,10 +64,10 @@ namespace T_I_yo_blog.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("getbyemail")]
+        public IActionResult Get(string email)
         {
-            var user = _usersRepository.GetById(id);
+            var user = _usersRepository.GetByEmail(email);
             if (user == null)
             {
                 return NotFound();

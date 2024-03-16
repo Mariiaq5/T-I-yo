@@ -28,7 +28,7 @@ namespace T_I_yo_blog.Controllers
             return CreatedAtAction(
                 "Get", new { id = food.Id }, food);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)
         {
             try
@@ -51,7 +51,7 @@ namespace T_I_yo_blog.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("edit/{id}")]
         public IActionResult Update(int id, Food food)
         {
             if (id != food.Id)
@@ -74,5 +74,16 @@ namespace T_I_yo_blog.Controllers
             }
             return Ok(food);
         }
+
+       [HttpGet("CountryId = {countryId}")]
+        public IActionResult GetFoodByCountryId(int countryId)
+        {
+            var place = _foodRepository.GetFoodByCountryId(countryId);
+            if (place == null)
+            {
+                return NotFound();
+            }
+            return Ok(place);
+        } 
     }
 }

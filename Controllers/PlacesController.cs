@@ -28,7 +28,7 @@ namespace T_I_yo_blog.Controllers
             return CreatedAtAction(
                 "Get", new { id = place.Id }, place);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)
         {
             try
@@ -51,7 +51,7 @@ namespace T_I_yo_blog.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("edit/{id}")]
         public IActionResult Update(int id, Place place)
         {
             if (id != place.Id)
@@ -68,6 +68,17 @@ namespace T_I_yo_blog.Controllers
         public IActionResult Get(int id)
         {
             var place = _placesRepository.GetPlaceById(id);
+            if (place == null)
+            {
+                return NotFound();
+            }
+            return Ok(place);
+        }
+
+        [HttpGet("/bycountry/{countryId}")]
+        public IActionResult GetPlacesByCountryId(int countryId)
+        {
+            var place = _placesRepository.GetPlacesByCountryId(countryId);
             if (place == null)
             {
                 return NotFound();

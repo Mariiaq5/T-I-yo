@@ -40,10 +40,9 @@ namespace T_I_yo_blog.Repositories {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Food (Id, Name, CountryId)
+                    cmd.CommandText = @"INSERT INTO Food (Name, CountryId)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@Id, @Name, @CountryId)";
-                    DbUtils.AddParameter(cmd, "@id", food.Id);
+                                        VALUES (@Name, @CountryId)";
                     DbUtils.AddParameter(cmd, "@Name", food.Name);
                     DbUtils.AddParameter(cmd, "@CountryId", food.CountryId);
                     food.Id = (int)cmd.ExecuteScalar();
@@ -51,7 +50,7 @@ namespace T_I_yo_blog.Repositories {
             }
         }
 
-        public List<Food> GetById(int id)
+        public Food GetById(int id)
         {
             using (var conn = Connection)
             {
@@ -62,21 +61,21 @@ namespace T_I_yo_blog.Repositories {
                                       "WHERE Id = @Id";
                     DbUtils.AddParameter(cmd, "@Id", id);
 
+                    Food newFood = null;
+
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            return new List<Food>() {new Food()
+                            newFood = new Food()
                     {
                         Id = reader.GetInt32(reader.GetOrdinal("Id")),
                         Name = reader.GetString(reader.GetOrdinal("Name")),
                         CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
-                    }};
+                    };
                         }
-                        else
-                        {
-                            return null;
-                        }
+                        reader.Close();
+                        return newFood;
                     }
                 }
             }
@@ -139,6 +138,37 @@ namespace T_I_yo_blog.Repositories {
                     }
                     reader.Close();
                     return null;
+                }
+            }
+        }
+
+        public List<Food> GetFoodByCountryId(int countryId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"Select Id, Name, CountryId from Food 
+                                       Where CountryId = @countryId";
+                    DbUtils.AddParameter(cmd, "@countryId", countryId);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new List<Food>() {new Food()
+                     {
+                         Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                         Name = reader.GetString(reader.GetOrdinal("Name")),
+                         CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
+                     }};
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
                 }
             }
         }

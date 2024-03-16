@@ -7,7 +7,8 @@ namespace T_I_yo_blog.Repositories
         void Add(Food food);
         void Delete(int foodId);
         List<Food> GetAll();
-        List<Food> GetById(int id);
+        Food GetById(int id);
+        List<Food> GetFoodByCountryId(int countryId);
         Food GetFoodById(int id);
         void Update(Food food);
     }
