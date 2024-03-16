@@ -33,4 +33,7 @@ export const deleteCity = (id) => {
     return fetch(`${baseUrl}/${id}`) 
     .then((res) => res.json()
     );
+
 }
+
+ //export const getCitiesByCountryId

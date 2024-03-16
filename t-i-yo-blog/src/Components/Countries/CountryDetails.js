@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getCountryById } from "../../Managers/CountryManager";
 import { getCitiesByCountryId } from "../../Managers/CountryManager";
 import { getFoodByCountryId } from "../../Managers/CountryManager";
@@ -9,6 +9,7 @@ import { deleteCity } from "../../Managers/CityManager";
 import { useNavigate } from "react-router-dom";
 import { deleteFood } from "../../Managers/FoodManager";
 import { deletePlace } from "../../Managers/PlaceManager";
+import { addPlace } from "../../Managers/PlaceManager";
 
 export const CountryDetails = () => {
   const [country, setCountry] = useState({});
@@ -50,14 +51,17 @@ export const CountryDetails = () => {
 
   const handleDeleteCity = (id) => {
     deleteCity(id)
+    .then(getCities)
   }
 
   const handleDeleteFood = (id) => {
     deleteFood(id)
+    .then(getFood)
   }
 
   const handleDeletePlace = (id) => {
     deletePlace(id)
+    .then(getPlaces)
   }
 
   return (
@@ -85,21 +89,22 @@ export const CountryDetails = () => {
                    <div class="row"> 
                    <div class="card text-row">
                     <h3 class="text-center">Cities:</h3>
+                    <button class="btn btn-outline-success btn-lg"  onClick={() => navigate(`/cities/add/${id}`)}>Add</button>
                     <table class="table table-striped">
                       <tbody>
                       {cities.map((city) => (
                         <tr key={city.city?.id}>   
                           <td>{city.city?.name}
-                          <button class="btn btn-outline-info btn-sm" onClick={() =>navigate(`/cities/edit/${city.city?.id}`)}>Update</button>
+                          <button class="btn btn-outline-info btn-sm" onClick={() => navigate(`/cities/edit/${city.city?.id}`)}>Update</button>
                          {places.some(x => x.place?.cityId === city.city?.id) ? <></> 
                          : 
-                          <button class="btn btn-outline-danger btn-sm" onClick={() =>handleDeleteCity(`${city.city?.id}`)}>Delete</button>
-                         }                      
+                          <button class="btn btn-outline-danger btn-sm" onClick={() => handleDeleteCity(`${city.city?.id}`)}>Delete</button>
+                         }  
                           </td>
                         </tr>                     
                         ))}
                       </tbody>
-                      <button class="btn btn-outline-success btn-lg"  onClick={() =>navigate(`/cities/add/${id}`)}>Add</button>
+
                     </table>
                    </div>
                    </div>

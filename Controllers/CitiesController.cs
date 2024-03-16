@@ -76,7 +76,7 @@ namespace T_I_yo_blog.Controllers
             return Ok(city);
         } 
 
-        [HttpGet("/bycountry={countryId}")]
+        [HttpGet("bycountry/{countryId}")]
         public IActionResult GetCitiesByCountryId(int countryId)
         {
             var city = _cityRepository.GetCitiesByCountryId(countryId);

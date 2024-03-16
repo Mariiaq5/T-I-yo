@@ -130,19 +130,18 @@ namespace T_I_yo_blog.Repositories
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                        var cities = new List<City>();
+                        while (reader.Read())
                         {
-                            return new List<City>() {new City()
-                     {
-                         Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                         Name = reader.GetString(reader.GetOrdinal("Name")),
-                         CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
-                     }};
+                            cities.Add(new City()
+                            {
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                Name = DbUtils.GetString(reader, "Name"),
+                                CountryId = DbUtils.GetInt(reader, "CountryId"),
+                            });
                         }
-                        else
-                        {
-                            return null;
-                        }
+                        reader.Close();
+                        return cities;
                     }
                 }
             }

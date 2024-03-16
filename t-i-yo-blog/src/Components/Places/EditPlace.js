@@ -3,14 +3,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getPlaceById, editPlace } from "../../Managers/PlaceManager";
 
 export const EditPlace = () => {
+    const { id } = useParams();
     const [place, setPlace] = useState({
         name: "",
         placeType: "",
         description: "",
+        countryId: ""
     });
 
     const navigate = useNavigate();
-    const { id } = useParams();
 
     useEffect(() => {
         getPlaceById(id)

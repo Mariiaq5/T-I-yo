@@ -115,11 +115,11 @@ namespace T_I_yo_blog.Repositories
                  SET Name = @name, CountryId = @countryId, CityId = @cityId, Description = @description, PlaceType = @placeType
                  WHERE id = @id";
                     cmd.Parameters.AddWithValue("@name", place.Name);
-                    cmd.Parameters.AddWithValue("@id", place.Id);
                     cmd.Parameters.AddWithValue("@countryId", place.CountryId);
                     cmd.Parameters.AddWithValue("@cityId", place.CityId);
                     cmd.Parameters.AddWithValue("@description", place.Description);
                     cmd.Parameters.AddWithValue("@placeType", place.PlaceType);
+                    cmd.Parameters.AddWithValue("@id", place.Id);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -132,7 +132,7 @@ namespace T_I_yo_blog.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-            SELECT Id, [Name] FROM Places
+            SELECT Id, [Name], PlaceType, Description, CityId, CountryId FROM Places
             WHERE Id = @id
             ";
                     cmd.Parameters.AddWithValue("@id", id);
@@ -143,6 +143,10 @@ namespace T_I_yo_blog.Repositories
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Name = reader.GetString(reader.GetOrdinal("Name")),
+                            PlaceType = reader.GetString(reader.GetOrdinal("PlaceType")),
+                            CityId = reader.GetInt32(reader.GetOrdinal("CityId")),
+                            Description = reader.GetString(reader.GetOrdinal("Description")),
+                            CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
                         };
                         reader.Close();
                         return places;

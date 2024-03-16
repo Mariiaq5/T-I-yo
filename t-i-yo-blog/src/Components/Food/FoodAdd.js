@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { addFood } from '../../Managers/FoodManager';
+import { addFood, getFoodById } from '../../Managers/FoodManager';
 import { useParams } from 'react-router-dom';
 
 
