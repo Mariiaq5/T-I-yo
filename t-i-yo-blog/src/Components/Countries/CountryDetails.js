@@ -18,6 +18,8 @@ export const CountryDetails = () => {
   const [places, setPlaces] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
+  const userString = localStorage.getItem("users");
+  const userLS = JSON.parse(userString);
 
 //console.log(country)
   const getCountry = () => {
@@ -89,17 +91,27 @@ export const CountryDetails = () => {
                    <div class="row"> 
                    <div class="card text-row">
                     <h3 class="text-center">Cities:</h3>
-                    <button class="btn btn-outline-success btn-lg"  onClick={() => navigate(`/cities/add/${id}`)}>Add</button>
+                    { userLS.admin == true ? (
+                  <>
+                <button class="btn btn-outline-success btn-lg"  onClick={() => navigate(`/cities/add/${id}`)}>Add</button>
+                 </>
+                 ) : (<></>)
+                }
                     <table class="table table-striped">
                       <tbody>
                       {cities.map((city) => (
                         <tr key={city.city?.id}>   
                           <td>{city.city?.name}
-                          <button class="btn btn-outline-info btn-sm" onClick={() => navigate(`/cities/edit/${city.city?.id}`)}>Update</button>
-                         {places.some(x => x.place?.cityId === city.city?.id) ? <></> 
+                          { userLS.admin == true ? (
+                  <>
+                <button class="btn btn-outline-info btn-sm" onClick={() => navigate(`/cities/edit/${city.city?.id}`)}>Update</button>
+                {places.some(x => x.place?.cityId === city.city?.id) ? <></> 
                          : 
                           <button class="btn btn-outline-danger btn-sm" onClick={() => handleDeleteCity(`${city.city?.id}`)}>Delete</button>
-                         }  
+                         } 
+                 </>
+                 ) : (<></>)
+                }
                           </td>
                         </tr>                     
                         ))}
@@ -114,21 +126,31 @@ export const CountryDetails = () => {
                    <div class="row"> 
                    <div class="card text-row">
                     <h3 class="text-center">Food to try:</h3>
+                    { userLS.admin == true ? (
+                  <>
+                  <button class="btn btn-outline-success btn-lg" onClick={() =>navigate(`/food/add/${id}`)}>Add</button>
+                 </>
+                 ) : (<></>)
+                }
                     <table class="table table-striped">
                       <tbody>
                       {foods.map((food) => (
                         <tr key={food.food?.id}>
                           <td>{food.food?.name}
-                          <button class="btn btn-outline-info btn-sm" onClick={() =>navigate(`/food/edit/${food.food?.id}`)}>Update</button>
-                          {places.some(x => x.place?.foodId === food.food?.id) ? <></> 
-                         : 
-                          <button class="btn btn-outline-danger btn-sm" onClick={() =>handleDeleteFood(`${food.food?.id}`)}>Delete</button>
-                          }
+                          { userLS.admin == true ? (
+                  <>
+                  <button class="btn btn-outline-info btn-sm" onClick={() =>navigate(`/food/edit/${food.food?.id}`)}>Update</button>
+                  {places.some(x => x.place?.foodId === food.food?.id) ? <></> 
+                  : 
+                  <button class="btn btn-outline-danger btn-sm" onClick={() =>handleDeleteFood(`${food.food?.id}`)}>Delete</button>
+                  }
+                 </>
+                 ) : (<></>)
+                }
                           </td>
                         </tr>                     
                         ))}
                       </tbody>
-                      <button class="btn btn-outline-success btn-lg" onClick={() =>navigate(`/food/add/${id}`)}>Add</button>
                     </table>
                    </div>
                    </div>
@@ -138,6 +160,12 @@ export const CountryDetails = () => {
                    <div class="row"> 
                    <div class="card text-row">
                     <h3 class="text-center">Places to visit:</h3>
+                    { userLS.admin == true ? (
+                  <>
+                      <button class="btn btn-outline-success btn-lg" onClick={() =>navigate(`/places/add/${id}`)}>Add</button>
+                 </>
+                 ) : (<></>)
+                }
                     <table class="table table-striped">
                       <thead>
                         <tr>
@@ -152,16 +180,20 @@ export const CountryDetails = () => {
                           <td>{place.place?.name}</td>
                           <td>{place.place?.placeType}</td>
                           <td>{place.place?.description}
-                          <button class="btn btn-outline-info btn-sm" onClick={() =>navigate(`/places/edit/${place.place?.id}`)}>Update</button>
-                          {places.some(x => x.place?.placeId === place.place?.id) ? <></> 
-                         : 
-                          <button class="btn btn-outline-danger btn-sm" onClick={() =>handleDeletePlace(`${place.place?.id}`)}>Delete</button>
-                          }
+                          { userLS.admin == true ? (
+                  <>
+                  <button class="btn btn-outline-info btn-sm" onClick={() =>navigate(`/places/edit/${place.place?.id}`)}>Update</button>
+                  {places.some(x => x.place?.placeId === place.place?.id) ? <></> 
+                  : 
+                  <button class="btn btn-outline-danger btn-sm" onClick={() =>handleDeletePlace(`${place.place?.id}`)}>Delete</button>
+                  }
+                 </>
+                 ) : (<></>)
+                }
                           </td>
                         </tr>                     
                         ))}
                       </tbody>
-                      <button class="btn btn-outline-success btn-lg" onClick={() =>navigate(`/places/add/${id}`)}>Add</button>
                     </table>
                    </div>
                    </div>
@@ -175,4 +207,4 @@ export const CountryDetails = () => {
                 </div>
                 </div>
                      )
-                      };
+                      }; 
