@@ -6,7 +6,12 @@ export const addFood = (singleFood) => {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(singleFood),
+        body: JSON.stringify({
+
+        name: singleFood.name, 
+        countryId: singleFood.countryId
+
+        }),
     });
 };
 
@@ -25,3 +30,9 @@ export const deleteFood = (id) => {
       method: "DELETE"
     });
   }
+
+  export const getFoodById = (id) => {
+    return fetch(`${baseUrl}/${id}`) 
+    .then((res) => res.json()
+    );
+}

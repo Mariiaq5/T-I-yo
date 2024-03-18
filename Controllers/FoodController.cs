@@ -28,7 +28,7 @@ namespace T_I_yo_blog.Controllers
             return CreatedAtAction(
                 "Get", new { id = food.Id }, food);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)
         {
             try

@@ -7,6 +7,9 @@ export const addCity = (singleCity) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(singleCity),
+
+        name: singleCity.name, 
+        countryId: singleCity.countryId
     });
 };
 
@@ -25,3 +28,12 @@ export const deleteCity = (id) => {
       method: "DELETE"
     });
   }
+
+  export const getCityById = (id) => {
+    return fetch(`${baseUrl}/${id}`) 
+    .then((res) => res.json()
+    );
+
+}
+
+ //export const getCitiesByCountryId

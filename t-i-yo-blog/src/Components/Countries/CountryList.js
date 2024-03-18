@@ -47,6 +47,12 @@ export const CountryList = () => {
             onChange={handleSearch}
           />
         </div>
+        { userLS.admin == true ? (
+                        <>
+                    <button class="btn btn-outline-success btn-sm" onClick={() => navigate(`/countries/add`)}>Add Country</button>
+                        </>
+                    ) : (<></>)
+                    }
         <div class="row row-cols-1 row-cols-md-2 g-4">
             {filteredCountries.map((country) => (
                 <div class="card text-center w-25" key={country.id}>

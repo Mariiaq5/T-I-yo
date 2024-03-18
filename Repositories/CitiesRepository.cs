@@ -51,7 +51,7 @@ namespace T_I_yo_blog.Repositories
                 }
             }
         }
-          public List<City> GetById(int id)
+          public City GetById(int id)
           {
               using (var conn = Connection)
               {
@@ -62,22 +62,24 @@ namespace T_I_yo_blog.Repositories
                                         "WHERE Id = @Id";
                       DbUtils.AddParameter(cmd, "@Id", id);
 
+                      City newCity = null;
+
                       using (var reader = cmd.ExecuteReader())
                       {
-                          if (reader.Read())
-                          {
-                              return new List<City>() {new City()
-                       {
-                           Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                           Name = reader.GetString(reader.GetOrdinal("Name")),
-                           CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
-                       }};
-                          }
-                          else
-                          {
-                              return null;
-                          }
-                      }
+                        if (reader.Read())
+                        {
+                            newCity = new City()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
+                            };
+                        }
+                            reader.Close();
+                        return newCity;
+;
+                    }
+                        
                   }
               } 
     } 
@@ -128,19 +130,18 @@ namespace T_I_yo_blog.Repositories
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                        var cities = new List<City>();
+                        while (reader.Read())
                         {
-                            return new List<City>() {new City()
-                     {
-                         Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                         Name = reader.GetString(reader.GetOrdinal("Name")),
-                         CountryId = reader.GetInt32(reader.GetOrdinal("CountryId")),
-                     }};
+                            cities.Add(new City()
+                            {
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                Name = DbUtils.GetString(reader, "Name"),
+                                CountryId = DbUtils.GetInt(reader, "CountryId"),
+                            });
                         }
-                        else
-                        {
-                            return null;
-                        }
+                        reader.Close();
+                        return cities;
                     }
                 }
             }
