@@ -14,7 +14,7 @@ const navigate = useNavigate();
                     <h2 className="text-4xl mt-8 text-white">Travel brings power and love back into your life.</h2>
                     { userLS.admin == true ? (
                         <>
-                    <button class="btn btn-outline-success btn-sm" onClick={() => navigate(`/users`)}>Users List</button>
+                    <button type="button" class="btn btn-outline-secondary" onClick={() => navigate(`/users`)}>Users List</button>
                         </>
                     ) : (<></>)
                     }

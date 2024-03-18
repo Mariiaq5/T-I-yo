@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { deleteCountry, getAllCountries } from '../../Managers/CountryManager';
 import { useNavigate } from 'react-router-dom';
-//import { useNavigate } from 'react-router';
+import { getAllImages } from '../../Managers/ImageManager';
+
 
 export const CountryList = () => {
     const [countries, setCountries] = useState([]);
@@ -9,14 +10,23 @@ export const CountryList = () => {
     const navigate = useNavigate();
     const userString = localStorage.getItem("users");
     const userLS = JSON.parse(userString);
+    const [images, setImages] = useState([]);
 
     const getCountries = () => {
         getAllCountries().then((thesecountries) => setCountries(thesecountries));
     }
 
+    const getImages = () => {
+        getAllImages().then((theseimages) => setImages(theseimages));
+    }
+
     useEffect(() => {
         getCountries();
         }, []);
+
+    useEffect(() => {
+        getImages();
+    }, []);
 
         const handleReadMore = (id) => {
             console.log(`Read more clicked for country with id ${id}`);
@@ -35,6 +45,10 @@ export const CountryList = () => {
             const countryName = country.name.toLowerCase().includes(search.toLowerCase());
             return countryName;
         });
+
+        /*const formattedImageUrl = images.filter((images) => {
+            return formattedImageUrl === images.countryId;
+        }); */
 //getImages in seperate state and then map through the images around the image src and then create a ternerary statement like in country details that if the country.id ==== image.countryId it'll give that source
     return (
 <div class="container">
@@ -49,18 +63,27 @@ export const CountryList = () => {
         </div>
         { userLS.admin == true ? (
                         <>
-                    <button class="btn btn-outline-success btn-sm" onClick={() => navigate(`/countries/add`)}>Add Country</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm" onClick={() => navigate(`/countries/add`)}>Add Country</button>
                         </>
                     ) : (<></>)
                     }
         <div class="row row-cols-1 row-cols-md-2 g-4">
-            {filteredCountries.map((country) => (
-                <div class="card text-center w-25" key={country.id}>
-                <img class="card-img-top" src="https://kiyavia.com/files/travel-provider/zakarpattya/mesta/Zakarpattya_1920.jpg" alt="Card image cap"/>
-                <div class="card-body">
-                <h5 class="card-title">{country.name}</h5>
-                </div>
-                <ul class="list-group list-group-flush">
+        {filteredCountries.map(country => {
+        // Find the corresponding image URL for the current country
+        const imageUrl = images.find(images => images.countryId === country.id)?.url;
+        const formattedImageUrl = imageUrl ? `"${imageUrl}"` : '';
+        return (
+          <div className="col-md-4" key={country.id}>
+            <div className="card">
+              {imageUrl && (
+                <img src={formattedImageUrl} className="card-img-top" alt={country.name} />
+              )}
+              <div className="card-body">
+                <h5 className="card-title">{images.countryId}</h5>
+                <h4 className="card-name">{country.name}</h4>
+                {/* Other card content */}
+              </div>
+              <ul class="list-group list-group-flush">
                     <li class="list-group-item">{country.description}</li>
                     <li class="list-group-item"> capital: {country.capital}</li>
                     <li class="list-group-item">{country.slogan}</li>
@@ -73,9 +96,11 @@ export const CountryList = () => {
                     <button class="btn btn-outline-success btn-sm" onClick={() => navigate(`edit/${country.id}`)}>Update Country</button>
                         </>
                     ) : (<></>)
-                    }                  
-                </div>
-            ))}
+                    }
+            </div>
+          </div>
+        );
+      })}
              </div>
                 </div>
     )
