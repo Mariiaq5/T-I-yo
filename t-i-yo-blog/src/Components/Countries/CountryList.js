@@ -47,6 +47,12 @@ export const CountryList = () => {
             onChange={handleSearch}
           />
         </div>
+        { userLS.admin == true ? (
+                        <>
+                    <button class="btn btn-outline-success btn-sm" onClick={() => navigate(`/countries/add`)}>Add Country</button>
+                        </>
+                    ) : (<></>)
+                    }
     <table class="table table-striped">
         <thead>
             <tr>
