@@ -24,6 +24,9 @@ export default function Login({setIsLoggedIn}) {
   };
 
   return (
+    <div class = "container col-4 text-center">
+      <div>
+        <h2>Please login</h2>
     <Form onSubmit={loginSubmit}>
       <fieldset>
         <FormGroup>
@@ -42,5 +45,7 @@ export default function Login({setIsLoggedIn}) {
         </em>
       </fieldset>
     </Form>
+    </div>
+    </div>
   );
 }

@@ -207,4 +207,4 @@ export const CountryDetails = () => {
                 </div>
                 </div>
                      )
-                      };
+                      }; 

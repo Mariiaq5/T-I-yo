@@ -34,24 +34,12 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/countries">Countries</NavLink>
                 </NavItem>
-                { userLS.admin == true ? (
-                  <>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/countries/add">Add New Country</NavLink>
-                </NavItem>
-                <NavItem>
-                <NavLink tag={RRNavLink} to="/users">Users</NavLink>
-                </NavItem>
-                 </>
-                 ) : (<></>)
-                }
-              </>
+              </> 
             }
           </Nav>
           <Nav navbar>
             {isLoggedIn &&
               <>
-
                 <NavItem>
                   <a aria-current="page" className="nav-link"
                     style={{ cursor: "pointer" }} onClick={() => {
