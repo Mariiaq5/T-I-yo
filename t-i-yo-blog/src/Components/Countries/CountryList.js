@@ -46,9 +46,7 @@ export const CountryList = () => {
             return countryName;
         });
 
-        /*const formattedImageUrl = images.filter((images) => {
-            return formattedImageUrl === images.countryId;
-        }); */
+
 //getImages in seperate state and then map through the images around the image src and then create a ternerary statement like in country details that if the country.id ==== image.countryId it'll give that source
     return (
 <div class="container">
@@ -73,10 +71,10 @@ export const CountryList = () => {
         const imageUrl = images.find(images => images.countryId === country.id)?.url;
         const formattedImageUrl = imageUrl ? `"${imageUrl}"` : '';
         return (
-          <div className="col-md-4" key={country.id}>
-            <div className="card">
+          <div className="col-md-4 d-flex" key={country.id}>
+            <div className="card flex-fill">
               {imageUrl && (
-                <img src={formattedImageUrl} className="card-img-top" alt={country.name} />
+                <img src={imageUrl} className="card-img-top" alt={country.id} />
               )}
               <div className="card-body">
                 <h5 className="card-title">{images.countryId}</h5>
