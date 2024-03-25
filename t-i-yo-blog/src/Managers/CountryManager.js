@@ -1,4 +1,3 @@
-import React from "react";
 
 const baseUrl = 'https://localhost:7088/api/Countries';
 

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
   const [newCountryDescription, setNewCountryDescription] = useState('');
   const [newCountrySlogan, setNewCountrySlogan] = useState('');
   const [newCountryCapital, setNewCountryCapital] = useState('');
+  const [newCountryImageUrl, setNewCountryImageUrl] = useState('');
   const navigate = useNavigate()
 
 
@@ -18,6 +19,7 @@ import { useNavigate } from 'react-router';
         description: newCountryDescription,
         slogan: newCountrySlogan,
         capital: newCountryCapital,
+        imageUrl: newCountryImageUrl,
       };
       const response = await addCountry(newCountry);
       if (response.ok) {
@@ -51,7 +53,11 @@ import { useNavigate } from 'react-router';
           Capital:
           <input type="text" value={newCountryCapital} onChange={(e) => setNewCountryCapital(e.target.value)} />
         </label>
-        <button type="submit" class="btn btn-success">Save</button>
+        Image Url:
+        <label>
+        <input type='url' value={newCountryImageUrl} onChange={(e) => setNewCountryImageUrl(e.target.value)} />
+        </label>
+        <button type="submit" class="btn btn-success">Save</button>       
       </form>
     </div>
   );
