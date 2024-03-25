@@ -13,12 +13,13 @@ export const UserProfileList = () => {
   }, []);
 
   return (
-    <div class="container-fluid">
-                  <div class="col">
-                   <div class="row"> 
-                   <div class="card text-row">
-                    <h3 class="text-center">Users</h3>
-                    <table class="table table-striped">
+    <div className="p-4 mb-3 bg-secondary">
+    <div className="container-fluid">
+                  <div className="col">
+                   <div className="row"> 
+                   <div className="card text-row">
+                    <h3 className="text-center">Users</h3>
+                    <table className="table table-striped">
                       <thead>
                         <tr>
                           <th>Name</th>
@@ -43,6 +44,7 @@ export const UserProfileList = () => {
                    </div>
                    </div>
                 </div>
+                 </div>
                  </div>
   );
 };

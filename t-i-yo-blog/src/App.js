@@ -4,6 +4,7 @@ import Header from "./Components/Header";
 import ApplicationView from "./Components/ApplicationView";
 import { useEffect } from 'react';
 import Authorize from './Components/Authorize';
+import "./App.css";
 
 
 function App() {

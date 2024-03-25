@@ -41,10 +41,10 @@ namespace T_I_yo_blog.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Images (Id, ImageUrl, CountryId, Name)
+                    cmd.CommandText = @"INSERT INTO Images (ImageUrl, CountryId, Name)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@id, @imageUrl, @countryId, @name)";
-                    DbUtils.AddParameter(cmd, "@id", image.Id);
+                                        VALUES (@imageUrl, @countryId, @name)";
+                    //DbUtils.AddParameter(cmd, "@id", image.Id);
                     DbUtils.AddParameter(cmd, "@ImageUrl", image.ImageUrl);
                     DbUtils.AddParameter(cmd, "@countryId", image.CountryId);
                     DbUtils.AddParameter(cmd, "@name", image.Name);
@@ -110,7 +110,7 @@ namespace T_I_yo_blog.Repositories
                  SET ImageUrl = @imageUrl, CountryId = @countryId, Name = @name
                  WHERE id = @id";
                     cmd.Parameters.AddWithValue("@imageUrl", image.ImageUrl);
-                    cmd.Parameters.AddWithValue("@id", image.Id);
+                    //cmd.Parameters.AddWithValue("@id", image.Id);
                     cmd.Parameters.AddWithValue("@countryId", image.CountryId);
                     cmd.Parameters.AddWithValue("@name", image.Name);
                     cmd.ExecuteNonQuery();
