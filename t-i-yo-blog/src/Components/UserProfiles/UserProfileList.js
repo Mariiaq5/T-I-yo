@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getallusers } from "../../Managers/UserProfileManager";
+import { Button } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 export const UserProfileList = () => {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   const getUsers = () => {
     getallusers().then((theseusers) => setUsers(theseusers));
@@ -13,8 +16,8 @@ export const UserProfileList = () => {
   }, []);
 
   return (
-    <div className="p-4 mb-3 bg-secondary">
-    <div className="container-fluid">
+    <div className="p-4 bg-secondary">
+    <div className="container-fluid bg-secondary">
                   <div className="col">
                    <div className="row"> 
                    <div className="card text-row">
@@ -45,7 +48,9 @@ export const UserProfileList = () => {
                    </div>
                 </div>
                  </div>
+                 <Button class="btn btn-link" color='dark' size="sm" onClick={() => navigate(`/`)}>Back to home page</Button>
                  </div>
+
   );
 };
 

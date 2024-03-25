@@ -24,7 +24,19 @@ export default function Login({setIsLoggedIn}) {
   };
 
   return (
-    <div class = "container col-4 text-center">
+<div style={{ 
+      backgroundImage: `url(${'https://www.pixelstalk.net/wp-content/uploads/images6/Travel-Wallpaper-Free-Download.jpg'})`, 
+      backgroundSize: 'cover',
+      minHeight: '100vh', 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center' 
+    }}>
+    <div class = "container col-4 text-center" style={{ 
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+        padding: '20px',
+        borderRadius: '10px'
+      }}>
       <div>
         <h2>Please login</h2>
     <Form onSubmit={loginSubmit}>
@@ -45,6 +57,7 @@ export default function Login({setIsLoggedIn}) {
         </em>
       </fieldset>
     </Form>
+    </div>
     </div>
     </div>
   );

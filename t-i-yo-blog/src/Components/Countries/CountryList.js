@@ -45,7 +45,7 @@ export const CountryList = () => {
     });
 
     return (
-        <div class="p-3 mb-2 bg-secondary">
+        <div class="p-3 bg-secondary">
         <div className="container">
             <div className="mb-3">
                 <Input
