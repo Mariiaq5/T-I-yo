@@ -39,7 +39,19 @@ import { getCitiesByCountryId } from "../../Managers/CountryManager";
   }, [id]);
 
   return (
-    <div className='place-form'>
+<div style={{ 
+    backgroundImage: 'url("https://i.pinimg.com/564x/6c/df/3d/6cdf3dcb506df77b133cdf4b2fff0a5e.jpg")', 
+    backgroundPosition: 'center', 
+    height: '100vh', 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center' 
+  }}>
+    <div style={{ 
+      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+      padding: '20px', 
+      borderRadius: '10px' 
+    }} className='place-form'>
       <h1>Add a new Place</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -65,6 +77,7 @@ import { getCitiesByCountryId } from "../../Managers/CountryManager";
       </div>
         <button type="submit" class="btn btn-success">Save</button>
       </form>
+    </div>
     </div>
   );
 };

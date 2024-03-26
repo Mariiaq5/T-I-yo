@@ -34,7 +34,19 @@ import { useNavigate } from 'react-router';
     navigate('/countries');
   };
   return (
-    <div className='country-form'>
+<div style={{ 
+    backgroundImage: 'url("https://i.pinimg.com/originals/4e/32/e3/4e32e317ae668e90aa1b6672407d2e6f.jpg")', 
+    backgroundPosition: 'center', 
+    height: '100vh', 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center' 
+  }}>
+    <div style={{ 
+      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+      padding: '20px', 
+      borderRadius: '10px' 
+    }} className='country-form'>
       <h1>Create a new Country</h1>
       <form onSubmit={handleSave}>
         <label>
@@ -59,6 +71,7 @@ import { useNavigate } from 'react-router';
         </label>
         <button type="submit" class="btn btn-success">Save</button>       
       </form>
+    </div>
     </div>
   );
 };

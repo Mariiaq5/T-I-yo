@@ -5,6 +5,7 @@ import ApplicationView from "./Components/ApplicationView";
 import { useEffect } from 'react';
 import Authorize from './Components/Authorize';
 import "./App.css";
+import { useNavigate } from 'react-router-dom';
 
 
 function App() {
@@ -13,11 +14,10 @@ function App() {
 
     useEffect(() => {
         if (!localStorage.getItem("users")) {
-            setIsLoggedIn(false)
-
+            setIsLoggedIn(false) 
         }
     }, [isLoggedIn])
-
+    
     return (
         <Router>
             <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />

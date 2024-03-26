@@ -26,7 +26,19 @@ import { useParams } from 'react-router-dom';
   };
 
   return (
-    <div className='city-form'>
+<div style={{ 
+    backgroundImage: 'url("https://i.pinimg.com/564x/a1/80/df/a180df38e941f417b8989438095a867c.jpg")', 
+    backgroundPosition: 'center', 
+    height: '100vh', 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center' 
+  }}>
+    <div style={{ 
+      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+      padding: '20px', 
+      borderRadius: '10px' 
+    }} className='city-form'>
       <h1>Add a new City</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -35,6 +47,7 @@ import { useParams } from 'react-router-dom';
         <input type="text" id="name" name="name" value={newCity.name} onChange={handleInputChange} />
         <button type="submit" class="btn btn-success">Save</button>
       </form>
+    </div>
     </div>
   );
 };
