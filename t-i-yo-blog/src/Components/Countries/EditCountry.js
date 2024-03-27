@@ -42,7 +42,19 @@ export const EditCountry = () => {
     };
 
     return (
-        <div>
+   <div style={{ 
+    backgroundImage: 'url("https://i.etsystatic.com/24441276/r/il/2982a2/2476261888/il_fullxfull.2476261888_sr7y.jpg")', 
+    backgroundPosition: 'center', 
+    height: '100vh', 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center' 
+  }}>
+    <div style={{ 
+      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+      padding: '20px', 
+      borderRadius: '10px' 
+    }} className='country-form'>
             <form onSubmit={handleSubmit}>
                 <div className="row">
                     <input type="text" id="name" placeholder="name" name="name" value={country.name} onChange={handleInputChange} />
@@ -58,6 +70,7 @@ export const EditCountry = () => {
                 </div>
                 <button type="submit">Save</button>
             </form>
+        </div>
         </div>
     );
 };

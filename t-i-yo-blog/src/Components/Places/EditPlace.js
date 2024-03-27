@@ -34,7 +34,19 @@ export const EditPlace = () => {
     };
 
     return (
-        <div>
+<div style={{ 
+    backgroundImage: 'url("https://i.pinimg.com/564x/91/af/80/91af803f57bf190ff9de770617de7434.jpg")', 
+    backgroundPosition: 'center', 
+    height: '100vh', 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center' 
+  }}>
+    <div style={{ 
+      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+      padding: '20px', 
+      borderRadius: '10px' 
+    }} className='place-form'>
             <form onSubmit={handleSubmit}>
                 <div className="row">
                     <input type="text" id="name" placeholder="name" name="name" value={place.name} onChange={handleInputChange} />
@@ -47,6 +59,7 @@ export const EditPlace = () => {
                 </div>
                 <button type="submit">Save</button>
             </form>
+        </div>
         </div>
     );
 };

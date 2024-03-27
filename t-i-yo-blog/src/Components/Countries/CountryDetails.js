@@ -9,7 +9,9 @@ import { deleteCity } from "../../Managers/CityManager";
 import { useNavigate } from "react-router-dom";
 import { deleteFood } from "../../Managers/FoodManager";
 import { deletePlace } from "../../Managers/PlaceManager";
+import { Button } from "reactstrap";
 import { addPlace } from "../../Managers/PlaceManager";
+
 
 export const CountryDetails = () => {
   const [country, setCountry] = useState({});
@@ -68,7 +70,7 @@ export const CountryDetails = () => {
 
   return (
     <div style={{ backgroundColor: '#9AA0A8'}}>
-        <div class="banner-fluid">
+        <div class="container-fluid">
           <div class="row">
             <div class="card text-center" style={{ backgroundColor: '#9AA0A8'}}>
               <h2>
@@ -182,6 +184,7 @@ export const CountryDetails = () => {
                    </div>
                    </div>
                    </div>
+                   <Button class="btn btn-link" color='dark' size="sm" onClick={() => navigate(`/countries`)}>Back to countries</Button>
                    </div>
                      )
                       }; 

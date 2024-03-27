@@ -31,7 +31,19 @@ export const EditCity = () => {
     // };
 
     return (
-        <div>
+<div style={{ 
+    backgroundImage: 'url("https://i.pinimg.com/564x/f3/08/34/f30834f637020559cb8fd160a10f9253.jpg")', 
+    backgroundPosition: 'center', 
+    height: '100vh', 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center' 
+  }}>
+    <div style={{ 
+      backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+      padding: '20px', 
+      borderRadius: '10px' 
+    }} className='city-form'>
             <form onSubmit={handleSubmit}>
                 <div className="row">
                     <input type="text" id="name" placeholder="name" name="name" value={city.name} onChange={(e) => {
@@ -43,6 +55,7 @@ export const EditCity = () => {
                 </div>
                 <button type="submit">Save</button>
             </form>
+        </div>
         </div>
     );
 };
