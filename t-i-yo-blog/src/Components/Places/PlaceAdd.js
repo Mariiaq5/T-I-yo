@@ -26,8 +26,9 @@ import { getCitiesByCountryId } from "../../Managers/CountryManager";
   };
 
   const handleSubmit = () => {
-    addPlace(newPlace)
-    navigate(`/countries/details/${id}`)
+    addPlace(newPlace);
+    navigate(`/countries/details/${id}`);
+    window.location.reload();
   };
 
   const getCities = () => {
